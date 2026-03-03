@@ -87,6 +87,14 @@ $green: #38a169;
   }
 }
 
+// Header actions
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 // Card infos
 .profile-card {
   background: $dark-card;
@@ -186,8 +194,7 @@ $green: #38a169;
 
 .btn {
   padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 25px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -197,22 +204,24 @@ $green: #38a169;
   align-items: center;
   gap: 8px;
 
-  &.btn-primary {
+  &.douceur-primary, &.btn-primary {
     background: $yellow;
     color: $dark;
+    border: 2px solid $yellow;
     &:hover { background: darken($yellow, 8%); transform: translateY(-1px); }
   }
 
-  &.btn-secondary {
-    background: rgba(255,255,255,0.08);
-    color: $text-light;
-    &:hover { background: rgba(255,255,255,0.14); }
+  &.douceur-outline, &.btn-secondary {
+    background: transparent;
+    color: $yellow;
+    border: 2px solid $yellow;
+    &:hover { background: $yellow; color: $dark; }
   }
 
-  &.btn-danger {
+  &.douceur-danger, &.btn-danger {
     background: transparent;
     color: $red;
-    border: 1px solid $red;
+    border: 2px solid $red;
     &:hover { background: $red; color: white; }
   }
 }
@@ -231,6 +240,11 @@ $green: #38a169;
   .profile-header {
     flex-direction: column;
     text-align: center;
+  }
+
+  .header-actions {
+    margin-left: 0;
+    justify-content: center;
   }
 
   .info-grid,

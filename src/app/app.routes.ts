@@ -6,8 +6,8 @@ import { EditMovie } from './edit-movie/edit-movie';
 import { Login } from './auth/login/login';
 import { Register } from './auth/register/register';
 import { Profile } from './profile/profile';
-import { authGuard } from './auth/auth.guard';
 import { Charts } from './charts/charts';
+import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -17,5 +17,5 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
-  { path: 'charts', component: Charts }
+  { path: 'charts', component: Charts },
 ];
