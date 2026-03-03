@@ -5,7 +5,6 @@ export class ThemeService {
   isDark = signal<boolean>(true);
 
   constructor() {
-    // Récupère le thème sauvegardé
     const saved = localStorage.getItem('theme');
     this.isDark.set(saved !== 'light');
     this.applyTheme();
@@ -17,14 +16,10 @@ export class ThemeService {
     this.applyTheme();
   }
 
-  private applyTheme() {
-    const body = document.body;
-    if (this.isDark()) {
-      body.classList.add('dark-theme');
-      body.classList.remove('light-theme');
-    } else {
-      body.classList.add('light-theme');
-      body.classList.remove('dark-theme');
-    }
+  public applyTheme() {
+    document.body.setAttribute(
+      'data-bs-theme',
+      this.isDark() ? 'dark' : 'light'
+    );
   }
 }
