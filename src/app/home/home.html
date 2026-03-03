@@ -1,0 +1,3 @@
+@for (movie of movies$ | async; track movie.id) {
+  <app-movie-card [movie]="movie"></app-movie-card>
+}
