@@ -1,4 +1,3 @@
-// src/app/auth/auth.service.ts
 import { Injectable, signal } from '@angular/core';
 import { User } from '../models/user';
 
@@ -7,14 +6,13 @@ export class AuthService {
   currentUser = signal<User | null>(null);
 
   register(user: User) {
-    // Ici tu peux soit stocker dans localStorage pour test
+    user.role = 'client'; // Par défaut un nouvel inscrit est client
     localStorage.setItem('user', JSON.stringify(user));
   }
 
   login(email: string, password: string): boolean {
     const stored = localStorage.getItem('user');
     if (!stored) return false;
-
     const user: User = JSON.parse(stored);
     if (user.email === email && user.password === password) {
       this.currentUser.set(user);
@@ -29,5 +27,13 @@ export class AuthService {
 
   isLoggedIn() {
     return this.currentUser() !== null;
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser()?.role === 'admin';
+  }
+
+  isClient(): boolean {
+    return this.currentUser()?.role === 'client';
   }
 }

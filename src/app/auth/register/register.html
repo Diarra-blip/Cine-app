@@ -1,13 +1,77 @@
 <div class="auth-container">
-  <h2>Créer votre compte!!</h2>
-  <form (ngSubmit)="register()">
-    <input type="text" placeholder="Prénom" [(ngModel)]="user.firstName" name="firstName" required />
-    <input type="text" placeholder="Nom" [(ngModel)]="user.lastName" name="lastName" required />
-    <input type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required />
-    <input type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required />
-    <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+  <h2>Créer votre compte</h2>
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+
+    <div class="field-wrapper">
+      <input type="text" placeholder="Prénom"
+             [(ngModel)]="user.firstName" name="firstName"
+             required minlength="2"
+             #firstName="ngModel"
+             [class.invalid]="firstName.invalid && firstName.touched" />
+      <span class="field-error" *ngIf="firstName.invalid && firstName.touched">
+        Prénom requis (2 caractères min)
+      </span>
+    </div>
+
+    <div class="field-wrapper">
+      <input type="text" placeholder="Nom"
+             [(ngModel)]="user.lastName" name="lastName"
+             required minlength="2"
+             #lastName="ngModel"
+             [class.invalid]="lastName.invalid && lastName.touched" />
+      <span class="field-error" *ngIf="lastName.invalid && lastName.touched">
+        Nom requis (2 caractères min)
+      </span>
+    </div>
+
+    <div class="field-wrapper">
+      <input type="email" placeholder="Email"
+             [(ngModel)]="user.email" name="email"
+             required email
+             #emailField="ngModel"
+             [class.invalid]="emailField.invalid && emailField.touched" />
+      <span class="field-error" *ngIf="emailField.invalid && emailField.touched">
+        Email invalide
+      </span>
+    </div>
+
+    <div class="password-wrapper">
+      <input [type]="showPassword ? 'text' : 'password'"
+             placeholder="Mot de passe"
+             [(ngModel)]="user.password" name="password"
+             required minlength="6"
+             pattern="^(?=.*[A-Za-z])(?=.*\d).{6,}$"
+             #passwordField="ngModel"
+             [class.invalid]="passwordField.invalid && passwordField.touched" />
+      <button type="button" class="eye-btn" (click)="showPassword = !showPassword"
+              [title]="showPassword ? 'Masquer' : 'Afficher'">
+        {{ showPassword ? '🙈' : '👁️' }}
+      </button>
+      <span class="field-error" *ngIf="passwordField.invalid && passwordField.touched">
+    6 caractères min avec au moins une lettre et un chiffre
+  </span>
+    </div>
+
+    <div class="password-wrapper">
+      <input [type]="showConfirm ? 'text' : 'password'"
+             placeholder="Confirmer le mot de passe"
+             [(ngModel)]="confirmPassword" name="confirmPassword"
+             required
+             #confirmField="ngModel"
+             [class.invalid]="confirmField.touched && confirmPassword !== user.password" />
+      <button type="button" class="eye-btn" (click)="showConfirm = !showConfirm"
+              [title]="showConfirm ? 'Masquer' : 'Afficher'">
+        {{ showConfirm ? '🙈' : '👁️' }}
+      </button>
+      <span class="field-error" *ngIf="confirmField.touched && confirmPassword !== user.password">
+    Les mots de passe ne correspondent pas
+  </span>
+    </div>
+
     <div class="error" *ngIf="error">{{ error }}</div>
-    <button type="submit">S'inscrire</button>
+    <button type="submit" [disabled]="registerForm.invalid || confirmPassword !== user.password">
+      S'inscrire
+    </button>
   </form>
-  <p>Avez-vous déjà un compte? <a href="/login" class="text-blue">Connectez-vous</a></p>
+  <p>Déjà un compte? <a routerLink="/login" class="text-blue">Connectez-vous</a></p>
 </div>

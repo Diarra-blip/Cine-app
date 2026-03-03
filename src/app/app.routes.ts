@@ -9,15 +9,17 @@ import { Profile } from './profile/profile';
 import { authGuard } from './auth/auth.guard';
 import { Charts } from './charts/charts';
 import { MovieDetail } from './movie-detail/movie-detail';
+import { adminGuard } from './auth/admin.guard';
+
 
 export const routes: Routes = [
   { path: '', component: Home },
-  { path: 'movies', component: MoviesList },
-  { path: 'add-movie', component: AddMovie },
-  { path: 'edit-movie/:id', component: EditMovie },
+  { path: 'movies', component: MoviesList, canActivate: [adminGuard] },
+  { path: 'add-movie', component: AddMovie, canActivate: [adminGuard] },
+  { path: 'edit-movie/:id', component: EditMovie, canActivate: [adminGuard] },
+  { path: 'charts', component: Charts, canActivate: [adminGuard] },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
-  { path: 'movie/:id', component: MovieDetail },
-  { path: 'charts', component: Charts }
+  { path: 'movie/:id', component: MovieDetail, canActivate: [authGuard] },
 ];

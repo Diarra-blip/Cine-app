@@ -6,9 +6,12 @@
     <!-- Liens centraux visibles quand connecté -->
     <div class="nav-links" *ngIf="auth.isLoggedIn()">
       <a class="nav-link" routerLink="/">Accueil</a>
-      <a class="nav-link" routerLink="/movies">Films</a>
-      <a class="nav-link" routerLink="/charts">Statistiques</a>
-      <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
+      <!-- Admin seulement -->
+      <ng-container *ngIf="auth.isAdmin()">
+        <a class="nav-link" routerLink="/movies">Gestion films</a>
+        <a class="nav-link" routerLink="/charts">Statistiques</a>
+        <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
+      </ng-container>
     </div>
 
     <!-- Bouton thème -->
@@ -42,15 +45,30 @@
       <a class="dropdown-item" routerLink="/" (click)="closeMenu()">
         <span class="item-icon">🏠</span> Accueil
       </a>
-      <a class="dropdown-item" routerLink="/movies" (click)="closeMenu()">
-        <span class="item-icon">🎬</span> Films
-      </a>
-      <a class="dropdown-item" routerLink="/add-movie" (click)="closeMenu()">
-        <span class="item-icon">➕</span> Ajouter un film
-      </a>
-      <a class="dropdown-item" routerLink="/charts" (click)="closeMenu()">
-        <span class="item-icon">📊</span> Statistiques
-      </a>
+
+      <!-- Admin seulement -->
+      <ng-container *ngIf="auth.isAdmin()">
+        <a class="dropdown-item" routerLink="/movies" (click)="closeMenu()">
+          <span class="item-icon">🎬</span> Gestion films
+        </a>
+        <a class="dropdown-item" routerLink="/add-movie" (click)="closeMenu()">
+          <span class="item-icon">➕</span> Ajouter un film
+        </a>
+        <a class="dropdown-item" routerLink="/charts" (click)="closeMenu()">
+          <span class="item-icon">📊</span> Statistiques
+        </a>
+      </ng-container>
+
+      <!-- Client seulement -->
+      <ng-container *ngIf="auth.isClient()">
+        <a class="dropdown-item" routerLink="/catalog" (click)="closeMenu()">
+          <span class="item-icon">🎥</span> Catalogue films
+        </a>
+        <a class="dropdown-item" routerLink="/favorites" (click)="closeMenu()">
+          <span class="item-icon">❤️</span> Mes favoris
+        </a>
+      </ng-container>
+
       <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
         <span class="item-icon">👤</span> Mon Espace
       </a>
@@ -62,5 +80,5 @@
   </div>
 </nav>
 
-<!-- Overlay pour fermer le menu en cliquant dehors -->
+<!-- Overlay -->
 <div class="nav-overlay" *ngIf="expanded" (click)="closeMenu()"></div>
