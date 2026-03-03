@@ -1,4 +1,5 @@
-// src/app/auth/user.model.ts
+import { Review } from './review';
+
 export interface User {
   firstName: string;
   lastName: string;
@@ -7,4 +8,7 @@ export interface User {
   birthDate?: string;
   gender?: string;
   acceptTerms?: boolean;
+  favorites?: number[];
+  reviews?: Review[];
+  role?: 'admin' | 'client';
 }

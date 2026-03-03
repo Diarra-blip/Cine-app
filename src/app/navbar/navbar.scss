@@ -166,3 +166,18 @@
   inset: 0;
   z-index: 199;
 }
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  margin-right: 8px;
+
+  &:hover {
+    transform: rotate(20deg) scale(1.2);
+  }
+}

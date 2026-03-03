@@ -11,6 +11,12 @@
       <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
     </div>
 
+    <!-- Bouton thème -->
+    <button class="theme-toggle" (click)="themeService.toggleTheme()"
+            [title]="themeService.isDark() ? 'Mode clair' : 'Mode sombre'">
+      {{ themeService.isDark() ? '☀️' : '🌙' }}
+    </button>
+
     <!-- Hamburger -->
     <div class="nav-hamburger-wrapper" (click)="toggleMenu()">
       <button class="hamburger" [class.open]="expanded">
