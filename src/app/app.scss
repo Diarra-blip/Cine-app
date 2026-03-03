@@ -1,0 +1,32 @@
+// Thème sombre (défaut)
+body.dark-theme {
+  --bg-primary: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-navbar: linear-gradient(90deg, #1c1c1c, #2c2c2c);
+  --text-primary: #eaeaea;
+  --text-muted: #9a9ab0;
+  --border-color: rgba(255,255,255,0.05);
+  --input-bg: rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.1);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+// Thème clair
+body.light-theme {
+  --bg-primary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-navbar: linear-gradient(90deg, #2c2c2c, #1c1c1c);
+  --text-primary: #1a1a2e;
+  --text-muted: #666680;
+  --border-color: rgba(0,0,0,0.08);
+  --input-bg: rgba(0,0,0,0.04);
+  --input-border: rgba(0,0,0,0.15);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+// Transition globale
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
