@@ -5,6 +5,7 @@ import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
 import { MovieCard } from './movie-card/movie-card';
 
+
 @Component({
   selector: 'app-home',
   imports: [AsyncPipe, DatePipe, MovieCard],
