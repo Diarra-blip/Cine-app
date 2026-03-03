@@ -1,6 +1,39 @@
+<<<<<<< HEAD
+<nav class="navbar douceur-navbar shadow-sm" [class.expanded]="isExpanded()">
+  <!-- Ligne principale (logo + hamburger) -->
+  <div class="navbar-main-line">
+    <!-- Logo -->
+    <a class="navbar-brand douceur-logo" routerLink="/">
+      🎬 {{ title }}
+    </a>
+    <!-- Hamburger à côté du logo -->
+    <div class="nav-hamburger-wrapper"
+         (mouseenter)="hoverMenu = true"
+         (mouseleave)="hoverMenu = false">
+      <button class="hamburger" (click)="toggleMenu()">☰</button>
+    </div>
+  </div>
+
+  <!-- Boutons supplémentaires -->
+  <div class="nav-buttons">
+    <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
+      <a class="btn douceur-outline rounded-pill px-4" routerLink="/login">Connexion</a>
+      <a class="btn douceur-primary rounded-pill px-4 fw-semibold" routerLink="/register">Créer un compte</a>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <a class="btn douceur-outline rounded-pill px-4" routerLink="/movies">Films</a>
+      <a class="btn douceur-outline rounded-pill px-4" routerLink="/add-movie">Ajouter un film</a>
+      <a class="btn douceur-primary rounded-pill px-4" routerLink="/profile">Mon Espace</a>
+      <button class="btn douceur-danger rounded-pill px-4" (click)="logout()">Déconnexion</button>
+    </ng-template>
+  </div>
+</nav>
+=======
 <nav class="navbar navbar-light navbar-expand bg-light ps-5">
   <a class="navbar-brand">{{ title | titlecase }}</a>
   <a class="nav-item nav-link" routerLink="/">Accueil</a>
   <a class="nav-item nav-link ms-3" routerLink="/movies">Gestion de films</a>
   <a class="nav-item nav-link ms-3" routerLink="/charts">Statistiques</a>
 </nav>
+>>>>>>> 4198a8928e450916a72c33e537e88ef2db886396

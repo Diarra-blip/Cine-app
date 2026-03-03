@@ -4,54 +4,51 @@
   padding: 14px 20px;
   position: relative;
   z-index: 100;
-
   display: flex;
   flex-direction: column;
-  transition: height 0.3s ease, padding 0.3s ease, background 0.3s, border-radius 0.3s;
+  transition: max-height 0.3s ease, padding 0.3s ease, background 0.3s, border-radius 0.3s;
   overflow: hidden;
-  height: 60px;
+  max-height: 60px; /* ← max-height au lieu de height */
   border-radius: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Navbar étendue */
 .douceur-navbar.expanded {
-  height: 200px;
+  max-height: 600px; /* ← assez grand pour n'importe quel nb de boutons */
   padding-bottom: 10px;
   background: linear-gradient(90deg, #1c1c1c, #3c3c5c);
   border-radius: 0 0 15px 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
-
 /* Ligne principale (logo + hamburger) */
 .navbar-main-line {
   display: flex;
-  justify-content: space-between; /* logo à gauche, burger à droite */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
-
 /* Logo à gauche */
 .douceur-logo {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
   color: #f8d210 !important;
   text-decoration: none;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   transition: opacity 0.3s;
 }
 .douceur-logo:hover {
   opacity: 0.8;
 }
-
-/* Hamburger wrapper aligné avec le logo */
+/* Hamburger wrapper */
 .nav-hamburger-wrapper {
   display: flex;
-  align-items: center;   /* centre verticalement le bouton */
+  align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-left: 10px;     /* espace entre logo et hamburger */
+  margin-left: 10px;
 }
-
 /* Bouton hamburger */
 .hamburger {
   font-size: 28px;
@@ -59,54 +56,80 @@
   border: none;
   color: #f8d210;
   transition: opacity 0.3s, transform 0.2s;
+  cursor: pointer;
 }
 .hamburger:hover {
   opacity: 0.7;
-  transform: scale(1.1); /* léger zoom au hover */
+  transform: scale(1.1);
 }
-
-/* Zone des boutons centrée et étendue */
+/* Zone des boutons */
 .nav-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-
+  gap: 10px;
   width: 100%;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  flex-grow: 1;
+  padding: 10px 10px 0 10px;
+  box-sizing: border-box;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease; /* ← ajoute "ease" */
 }
-
 /* Affiche les boutons lorsque la navbar est étendue */
 .douceur-navbar.expanded .nav-buttons {
   opacity: 1;
 }
-
-/* Style des boutons étendus */
+/* Style commun des boutons */
 .nav-buttons .btn {
-  width: 100%;            /* prend 100% de la largeur disponible */
-  max-width: 2000px;      /* limite la largeur si grand écran */
+  width: 100%;
   border-radius: 25px;
-  padding: 12px 0;        /* plus de padding vertical */
+  padding: 12px 0;
   font-weight: 600;
   text-align: center;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-sizing: border-box;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  font-size: 15px;
 }
-
-/* Hover pour les boutons outline */
+/* Bouton outline (Connexion, Films, Ajouter un film) */
+.btn.douceur-outline {
+  background: transparent;
+  border: 2px solid #f8d210;
+  color: #f8d210;
+}
 .btn.douceur-outline:hover {
   background: #f8d210;
   color: black;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
-
-/* Hover pour les boutons primary */
+/* Bouton primary (Créer un compte, Mon Espace) */
+.btn.douceur-primary {
+  background: #f8d210;
+  color: black;
+  border: 2px solid #f8d210;
+}
 .btn.douceur-primary:hover {
   background: linear-gradient(135deg, #ffd93d, #f8d210);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+/* Bouton danger (Déconnexion) */
+.btn.douceur-danger {
+  background: transparent;
+  border: 2px solid #e53e3e;
+  color: #e53e3e;
+}
+.btn.douceur-danger:hover {
+  background: #e53e3e;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+
+
+
