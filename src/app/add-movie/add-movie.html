@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="card shadow">
-        <div class="card-header bg-warning text-dark text-center py-3">
-          <h2 class="h4 mb-0">🎬 Ajouter un Nouveau Film</h2>
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-warning text-dark text-center py-4">
+          <h2 class="h4 mb-0 fw-bold">🎬 Ajouter un Nouveau Film</h2>
         </div>
         
         <div class="card-body p-4">
@@ -15,20 +15,34 @@
                 <span class="input-group-text bg-light text-muted">Aa</span>
                 <input type="text" name="title" [(ngModel)]="movie.title" required minlength="2" #title="ngModel"
                   class="form-control" [class.is-invalid]="title.invalid && title.touched" placeholder="Ex: Inception" />
-                <div class="invalid-feedback" *ngIf="title.invalid && title.touched">
-                  Un titre de 2 caractères minimum est requis.
+                <div class="invalid-feedback">
+                  Le titre est obligatoire (min. 2 caractères).
                 </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-bold">Réalisateur</label>
-              <div class="input-group">
-                <span class="input-group-text bg-light text-muted"><i class="bi bi-person"></i>👤</span>
-                <input type="text" name="director" [(ngModel)]="movie.director" required #director="ngModel"
-                  class="form-control" [class.is-invalid]="director.invalid && director.touched" placeholder="Ex: Christopher Nolan" />
-                <div class="invalid-feedback" *ngIf="director.invalid && director.touched">
-                  Le nom du réalisateur est obligatoire.
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Réalisateur</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light text-muted">👤</span>
+                  <input type="text" name="director" [(ngModel)]="movie.director" required minlength="3" #director="ngModel"
+                    class="form-control" [class.is-invalid]="director.invalid && director.touched" placeholder="Nom du réalisateur" />
+                  <div class="invalid-feedback" *ngIf="director.errors?.['required']">Le nom est requis.</div>
+                  <div class="invalid-feedback" *ngIf="director.errors?.['minlength']">Précisez le nom (min. 3 car.).</div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Date de sortie</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light text-muted">📅</span>
+                  <input type="date" name="releaseDate" [(ngModel)]="movie.releaseDate" 
+                    required [max]="today" min="1895-12-28" #relDate="ngModel"
+                    class="form-control" [class.is-invalid]="relDate.invalid && (relDate.dirty || relDate.touched)" />
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['max']">Impossible de choisir le futur !</div>
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['min']">Le cinéma n'existait pas encore.</div>
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['required']">La date est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -38,18 +52,21 @@
               <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="10" #synopsis="ngModel"
                 class="form-control" rows="4" [class.is-invalid]="synopsis.invalid && synopsis.touched" 
                 placeholder="Décrivez brièvement l'histoire..."></textarea>
-              <div class="invalid-feedback" *ngIf="synopsis.invalid && synopsis.touched">
-                Veuillez saisir au moins 10 caractères.
+              
+              <div class="invalid-feedback" *ngIf="synopsis.errors?.['required']">Veuillez résumer l'histoire.</div>
+              <div class="invalid-feedback" *ngIf="synopsis.errors?.['minlength']">
+                Encore {{ 10 - (movie.synopsis?.length || 0) }} caractères pour guider l'utilisateur.
               </div>
+              <div class="form-text text-end" *ngIf="synopsis.valid">Parfait !</div>
             </div>
 
             <div class="d-grid gap-2">
-              <button type="button" class="btn btn-warning btn-lg shadow-sm fw-bold" 
+              <button type="button" class="btn btn-warning btn-lg shadow-sm fw-bold py-3" 
                 (click)="addMovie()" [disabled]="movieForm.invalid">
-                <i class="bi bi-plus-circle-fill me-2"></i>➕ Enregistrer le film
+                ➕ Enregistrer le film
               </button>
               <small class="text-center text-muted" *ngIf="movieForm.invalid">
-                Veuillez remplir tous les champs pour valider.
+                * Veuillez corriger les champs en rouge pour enregistrer.
               </small>
             </div>
 
