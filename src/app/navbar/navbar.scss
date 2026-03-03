@@ -1,112 +1,183 @@
-/* Navbar principale */
 .douceur-navbar {
   background: linear-gradient(90deg, #1c1c1c, #2c2c2c);
-  padding: 14px 20px;
-  position: relative;
-  z-index: 100;
-
+  padding: 0 20px;
+  height: 60px;
   display: flex;
   flex-direction: column;
-  transition: height 0.3s ease, padding 0.3s ease, background 0.3s, border-radius 0.3s;
-  overflow: hidden;
-  height: 60px;
-  border-radius: 0;
+  position: relative;
+  z-index: 200;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Navbar étendue */
-.douceur-navbar.expanded {
-  height: 200px;
-  padding-bottom: 10px;
-  background: linear-gradient(90deg, #1c1c1c, #3c3c5c);
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Ligne principale (logo + hamburger) */
 .navbar-main-line {
   display: flex;
-  justify-content: space-between; /* logo à gauche, burger à droite */
   align-items: center;
+  height: 60px;
   width: 100%;
+  gap: 16px;
 }
 
-/* Logo à gauche */
+/* Logo */
 .douceur-logo {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 800;
   color: #f8d210 !important;
   text-decoration: none;
-  letter-spacing: 10px;
-  transition: opacity 0.3s;
-}
-.douceur-logo:hover {
-  opacity: 0.8;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.8; }
 }
 
-/* Hamburger wrapper aligné avec le logo */
-.nav-hamburger-wrapper {
+/* Liens centraux */
+.nav-links {
   display: flex;
-  align-items: center;   /* centre verticalement le bouton */
-  justify-content: center;
-  cursor: pointer;
-  margin-left: 10px;     /* espace entre logo et hamburger */
+  align-items: center;
+  gap: 4px;
+  margin-left: 32px;
+  flex: 1;
 }
 
-/* Bouton hamburger */
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    color: #f8d210;
+    background: rgba(248, 210, 16, 0.1);
+  }
+}
+
+/* Hamburger animé */
+.nav-hamburger-wrapper {
+  margin-left: auto;
+  cursor: pointer;
+}
+
 .hamburger {
-  font-size: 28px;
   background: transparent;
   border: none;
-  color: #f8d210;
-  transition: opacity 0.3s, transform 0.2s;
-}
-.hamburger:hover {
-  opacity: 0.7;
-  transform: scale(1.1); /* léger zoom au hover */
-}
-
-/* Zone des boutons centrée et étendue */
-.nav-buttons {
+  cursor: pointer;
+  padding: 6px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
+  width: 36px;
 
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
+  span {
+    display: block;
+    height: 2px;
+    background: #f8d210;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  &.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  &.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  &.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* Dropdown */
+.nav-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  background: #1e1e2e;
+  border: 1px solid rgba(248, 210, 16, 0.2);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 220px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
   opacity: 0;
-  transition: opacity 0.3s;
+  transform: translateY(-10px) scale(0.97);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 300;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
 }
 
-/* Affiche les boutons lorsque la navbar est étendue */
-.douceur-navbar.expanded .nav-buttons {
-  opacity: 1;
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all 0.15s;
+
+  .item-icon { font-size: 16px; }
+
+  &:hover {
+    background: rgba(248, 210, 16, 0.1);
+    color: #f8d210;
+  }
+
+  &.primary {
+    background: #f8d210;
+    color: #1c1c1c;
+    font-weight: 700;
+    margin-top: 4px;
+    &:hover { background: #ffd93d; }
+  }
+
+  &.danger {
+    color: #e53e3e;
+    &:hover { background: rgba(229,62,62,0.1); }
+  }
 }
 
-/* Style des boutons étendus */
-.nav-buttons .btn {
-  width: 100%;            /* prend 100% de la largeur disponible */
-  max-width: 2000px;      /* limite la largeur si grand écran */
-  border-radius: 25px;
-  padding: 12px 0;        /* plus de padding vertical */
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 6px 0;
 }
 
-/* Hover pour les boutons outline */
-.btn.douceur-outline:hover {
-  background: #f8d210;
-  color: black;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+/* Overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
 }
 
-/* Hover pour les boutons primary */
-.btn.douceur-primary:hover {
-  background: linear-gradient(135deg, #ffd93d, #f8d210);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  margin-right: 8px;
+
+  &:hover {
+    transform: rotate(20deg) scale(1.2);
+  }
 }

@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
 import { MovieCard } from './movie-card/movie-card';
-
 
 @Component({
   selector: 'app-home',
@@ -15,4 +14,13 @@ import { MovieCard } from './movie-card/movie-card';
 export class Home {
   private readonly moviesApi = inject(MoviesApiService);
   movies$: Observable<Movie[]> = this.moviesApi.getMovies();
+  currentSlide = signal(0);
+
+  prevSlide(): void {
+    this.currentSlide.update(i => i > 0 ? i - 1 : i);
+  }
+
+  nextSlide(total: number): void {
+    this.currentSlide.update(i => i < total - 1 ? i + 1 : i);
+  }
 }

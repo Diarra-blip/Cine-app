@@ -1,25 +1,25 @@
 <div class="auth-container">
-  <h2>Sign in to your account</h2>
+  <h2>Connectez-vous à votre compte</h2>
   <form (ngSubmit)="login()" #loginForm="ngForm">
     <input
       type="email"
-      placeholder="Email"
+      placeholder="E-mail"
       [(ngModel)]="email"
       name="email"
       required
     />
     <input
       type="password"
-      placeholder="Password"
+      placeholder="Mot de passe"
       [(ngModel)]="password"
       name="password"
       required
     />
     <div class="error" *ngIf="error">{{ error }}</div>
-    <button type="submit">Sign In</button>
+    <button type="submit">Se connecter</button>
   </form>
   <p>
-    New user?
-    <a href="/register" class="text-blue">Register</a>
+    Nouvel utilisateur?
+    <a href="/register" class="text-blue">Inscrivez-vous</a>
   </p>
 </div>

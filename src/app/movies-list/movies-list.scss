@@ -1,0 +1,38 @@
+.container {
+  h2 {
+    color: var(--text-primary);
+  }
+}
+
+// Table Bootstrap adaptée au thème
+.table {
+  color: var(--text-primary) !important;
+  background: var(--bg-card) !important;
+
+  thead tr {
+    background: var(--bg-card) !important;
+    color: var(--text-muted) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  tbody tr {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+
+    &:hover {
+      background: var(--input-bg) !important;
+    }
+  }
+
+  td, th {
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+}
+
+// Override Bootstrap table-striped
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+}

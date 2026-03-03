@@ -1,31 +1,66 @@
-<nav class="navbar douceur-navbar shadow-sm" [class.expanded]="isExpanded()">
-
-  <!-- Ligne principale (logo + hamburger) -->
+<nav class="douceur-navbar">
   <div class="navbar-main-line">
     <!-- Logo -->
-    <a class="navbar-brand douceur-logo" routerLink="/">
-      🎬 {{ title }}
-    </a>
+    <a class="douceur-logo" routerLink="/">🎬 {{ title }}</a>
 
-    <!-- Hamburger à côté du logo -->
-    <div class="nav-hamburger-wrapper"
-         (mouseenter)="hoverMenu = true"
-         (mouseleave)="hoverMenu = false">
-      <button class="hamburger" (click)="toggleMenu()">☰</button>
+    <!-- Liens centraux visibles quand connecté -->
+    <div class="nav-links" *ngIf="auth.isLoggedIn()">
+      <a class="nav-link" routerLink="/">Accueil</a>
+      <a class="nav-link" routerLink="/movies">Films</a>
+      <a class="nav-link" routerLink="/charts">Statistiques</a>
+      <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
+    </div>
+
+    <!-- Bouton thème -->
+    <button class="theme-toggle" (click)="themeService.toggleTheme()"
+            [title]="themeService.isDark() ? 'Mode clair' : 'Mode sombre'">
+      {{ themeService.isDark() ? '☀️' : '🌙' }}
+    </button>
+
+    <!-- Hamburger -->
+    <div class="nav-hamburger-wrapper" (click)="toggleMenu()">
+      <button class="hamburger" [class.open]="expanded">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 
-  <!-- Boutons supplémentaires centrés et étendus -->
-  <div class="nav-buttons">
+  <!-- Dropdown menu -->
+  <div class="nav-dropdown" [class.visible]="expanded">
     <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
-      <a class="btn douceur-outline rounded-pill px-4" routerLink="/login">Connexion</a>
-      <a class="btn douceur-primary rounded-pill px-4 fw-semibold" routerLink="/register">Créer un compte</a>
+      <a class="dropdown-item" routerLink="/login" (click)="closeMenu()">
+        <span class="item-icon">🔑</span> Connexion
+      </a>
+      <a class="dropdown-item primary" routerLink="/register" (click)="closeMenu()">
+        <span class="item-icon">✨</span> Créer un compte
+      </a>
     </ng-container>
 
     <ng-template #loggedIn>
-      <a class="btn douceur-primary rounded-pill px-4" routerLink="/add-movie">Ajouter un film</a>
-      <button class="btn douceur-outline rounded-pill px-4" (click)="auth.logout()">Déconnexion</button>
+      <a class="dropdown-item" routerLink="/" (click)="closeMenu()">
+        <span class="item-icon">🏠</span> Accueil
+      </a>
+      <a class="dropdown-item" routerLink="/movies" (click)="closeMenu()">
+        <span class="item-icon">🎬</span> Films
+      </a>
+      <a class="dropdown-item" routerLink="/add-movie" (click)="closeMenu()">
+        <span class="item-icon">➕</span> Ajouter un film
+      </a>
+      <a class="dropdown-item" routerLink="/charts" (click)="closeMenu()">
+        <span class="item-icon">📊</span> Statistiques
+      </a>
+      <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
+        <span class="item-icon">👤</span> Mon Espace
+      </a>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item danger" (click)="logout()">
+        <span class="item-icon">🚪</span> Déconnexion
+      </button>
     </ng-template>
   </div>
-
 </nav>
+
+<!-- Overlay pour fermer le menu en cliquant dehors -->
+<div class="nav-overlay" *ngIf="expanded" (click)="closeMenu()"></div>

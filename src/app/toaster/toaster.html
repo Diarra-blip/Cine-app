@@ -1,0 +1,8 @@
+@if (toasterService.toast()) {
+  <div class="toast-container">
+    <div class="toast-message" [class.success]="toasterService.toast()!.type === 'success'" [class.error]="toasterService.toast()!.type === 'error'">
+      <i class="bi" [class.bi-check-circle-fill]="toasterService.toast()!.type === 'success'" [class.bi-x-circle-fill]="toasterService.toast()!.type === 'error'"></i>
+      {{ toasterService.toast()!.message }}
+    </div>
+  </div>
+}

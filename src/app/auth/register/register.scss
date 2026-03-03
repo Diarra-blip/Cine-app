@@ -2,33 +2,46 @@
   max-width: 400px;
   margin: 80px auto;
   padding: 40px;
-  background: #1e1e1e;
-  color: white;
+  background: var(--bg-card);
+  color: var(--text-primary);
   border-radius: 10px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 
   input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: none;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-primary);
+
+    &::placeholder { color: var(--text-muted); }
   }
 
   button {
     width: 100%;
     padding: 10px;
-    background: #0d6efd;
-    color: white;
+    background: #f8d210;
+    color: #1a1a2e;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
     font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
   }
 
   .text-blue {
-    color: #0d6efd;
+    color: #f8d210;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .error {
