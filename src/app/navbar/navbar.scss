@@ -1,0 +1,112 @@
+/* Navbar principale */
+.douceur-navbar {
+  background: linear-gradient(90deg, #1c1c1c, #2c2c2c);
+  padding: 14px 20px;
+  position: relative;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  transition: height 0.3s ease, padding 0.3s ease, background 0.3s, border-radius 0.3s;
+  overflow: hidden;
+  height: 60px;
+  border-radius: 0;
+}
+
+/* Navbar étendue */
+.douceur-navbar.expanded {
+  height: 200px;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, #1c1c1c, #3c3c5c);
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Ligne principale (logo + hamburger) */
+.navbar-main-line {
+  display: flex;
+  justify-content: space-between; /* logo à gauche, burger à droite */
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo à gauche */
+.douceur-logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #f8d210 !important;
+  text-decoration: none;
+  letter-spacing: 10px;
+  transition: opacity 0.3s;
+}
+.douceur-logo:hover {
+  opacity: 0.8;
+}
+
+/* Hamburger wrapper aligné avec le logo */
+.nav-hamburger-wrapper {
+  display: flex;
+  align-items: center;   /* centre verticalement le bouton */
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;     /* espace entre logo et hamburger */
+}
+
+/* Bouton hamburger */
+.hamburger {
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #f8d210;
+  transition: opacity 0.3s, transform 0.2s;
+}
+.hamburger:hover {
+  opacity: 0.7;
+  transform: scale(1.1); /* léger zoom au hover */
+}
+
+/* Zone des boutons centrée et étendue */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Affiche les boutons lorsque la navbar est étendue */
+.douceur-navbar.expanded .nav-buttons {
+  opacity: 1;
+}
+
+/* Style des boutons étendus */
+.nav-buttons .btn {
+  width: 100%;            /* prend 100% de la largeur disponible */
+  max-width: 2000px;      /* limite la largeur si grand écran */
+  border-radius: 25px;
+  padding: 12px 0;        /* plus de padding vertical */
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Hover pour les boutons outline */
+.btn.douceur-outline:hover {
+  background: #f8d210;
+  color: black;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Hover pour les boutons primary */
+.btn.douceur-primary:hover {
+  background: linear-gradient(135deg, #ffd93d, #f8d210);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}

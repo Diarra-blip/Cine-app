@@ -1,0 +1,25 @@
+<div class="auth-container">
+  <h2>Sign in to your account</h2>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+      name="email"
+      required
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+      name="password"
+      required
+    />
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <button type="submit" [disabled]="!loginForm.form.valid">Sign In</button>
+  </form>
+  <p>
+    New user?
+    <a href="/register" class="text-blue">Register</a>
+  </p>
+</div>
