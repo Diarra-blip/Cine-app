@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
+import { ToasterService } from '../services/toaster';
 
 @Component({
   selector: 'app-movies-list',
@@ -12,6 +13,7 @@ import { MoviesApiService } from '../services/movies-api';
 })
 export class MoviesList implements OnInit {
   private readonly moviesApi = inject(MoviesApiService);
+  private readonly toaster = inject(ToasterService);
   movies = signal<Movie[]>([]);
 
   ngOnInit(): void {
@@ -20,9 +22,10 @@ export class MoviesList implements OnInit {
 
   deleteMovie(id: number | undefined): void {
     if (id) {
-      this.moviesApi.deleteMovie(id).subscribe(
-        () => this.movies.update(current => current.filter(movie => movie.id !== id))
-      );
+      this.moviesApi.deleteMovie(id).subscribe(() => {
+        this.movies.update(current => current.filter(movie => movie.id !== id));
+        this.toaster.show('Film supprimé !');
+      });
     }
   }
 }

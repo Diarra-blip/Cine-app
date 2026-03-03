@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
+import { ToasterService } from '../services/toaster';
 
 @Component({
   selector: 'app-add-movie',
@@ -13,6 +14,7 @@ import { MoviesApiService } from '../services/movies-api';
 export class AddMovie {
   private readonly moviesApi = inject(MoviesApiService);
   private readonly router = inject(Router);
+  private readonly toaster = inject(ToasterService);
 
   movie: Movie = {
     title: '',
@@ -25,8 +27,9 @@ export class AddMovie {
   };
 
   addMovie(): void {
-    this.moviesApi.addMovie(this.movie).subscribe(
-      () => this.router.navigate(['/movies'])
-    );
+    this.moviesApi.addMovie(this.movie).subscribe(() => {
+      this.toaster.show('Nouveau film ajouté !');
+      this.router.navigate(['/movies']);
+    });
   }
 }
