@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
+import { ToasterService } from '../services/toaster';
 
 @Component({
   selector: 'app-edit-movie',
@@ -14,6 +15,7 @@ export class EditMovie implements OnInit {
   private readonly moviesApi = inject(MoviesApiService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toaster = inject(ToasterService);
 
   movie: Movie = {
     title: '',
@@ -31,8 +33,9 @@ export class EditMovie implements OnInit {
   }
 
   updateMovie(): void {
-    this.moviesApi.updateMovie(this.movie).subscribe(
-      () => this.router.navigate(['/movies'])
-    );
+    this.moviesApi.updateMovie(this.movie).subscribe(() => {
+      this.toaster.show('Film mis à jour !');
+      this.router.navigate(['/movies']);
+    });
   }
 }
