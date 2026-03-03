@@ -1,9 +1,11 @@
 <div class="profile-page">
 
-  <!-- Toast succès -->
-  <div class="toast" *ngIf="successMessage">
-    <span class="toast-icon">✓</span>
-    {{ successMessage }}
+  <!-- Toast -->
+  <div class="toast" *ngIf="toast" [ngClass]="toast.type">
+    <span class="toast-icon">
+      {{ toast.type === 'success' ? '✓' : toast.type === 'error' ? '✕' : 'ℹ' }}
+    </span>
+    {{ toast.message }}
   </div>
 
   <div class="profile-container" *ngIf="user">
@@ -17,12 +19,19 @@
         <h1>{{ user.firstName }} {{ user.lastName }}</h1>
         <p class="profile-email">{{ user.email }}</p>
       </div>
+      <div class="header-actions">
+        <button class="btn douceur-primary" (click)="startEditing()" *ngIf="!isEditing">
+          ✏️ Modifier
+        </button>
+        <button class="btn douceur-danger" (click)="logout()">
+          🚪 Déconnexion
+        </button>
+      </div>
     </div>
 
     <!-- Infos -->
     <div class="profile-card" *ngIf="!isEditing">
       <h2 class="card-title">Mes informations</h2>
-
       <div class="info-grid">
         <div class="info-item">
           <span class="info-label">Prénom</span>
@@ -50,7 +59,6 @@
     <!-- Formulaire d'édition -->
     <div class="profile-card" *ngIf="isEditing">
       <h2 class="card-title">Modifier mes informations</h2>
-
       <div class="form-grid">
         <div class="form-group">
           <label for="firstName">Prénom</label>
@@ -64,17 +72,24 @@
           <label for="email">Email</label>
           <input id="email" type="email" [(ngModel)]="editForm.email" placeholder="Email" />
         </div>
-        <div class="form-group full-width">
-          <label for="password">Mot de passe</label>
-          <input id="password" type="password" [(ngModel)]="editForm.password" placeholder="Nouveau mot de passe" />
+        <div class="form-group">
+          <label for="password">Nouveau mot de passe</label>
+          <input id="password" type="password" [(ngModel)]="editForm.password"
+                 placeholder="Laisser vide = inchangé" />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer le mot de passe</label>
+          <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword"
+                 placeholder="Confirmer le mot de passe"
+                 [class.input-error]="passwordError" />
+          <span class="error-msg" *ngIf="passwordError">{{ passwordError }}</span>
         </div>
       </div>
-
       <div class="profile-actions">
-        <button class="btn douceur-primary rounded-pill" (click)="saveChanges()">
+        <button class="btn douceur-primary" (click)="saveChanges()">
           💾 Sauvegarder
         </button>
-        <button class="btn douceur-outline rounded-pill" (click)="cancelEditing()">
+        <button class="btn douceur-outline" (click)="cancelEditing()">
           Annuler
         </button>
       </div>
@@ -85,7 +100,7 @@
   <!-- Si pas connecté -->
   <div class="not-logged" *ngIf="!user">
     <p>Vous n'êtes pas connecté.</p>
-    <a routerLink="/login" class="btn douceur-primary rounded-pill">Se connecter</a>
+    <a routerLink="/login" class="btn douceur-primary">Se connecter</a>
   </div>
 
 </div>
