@@ -1,3 +1,5 @@
+import { Review } from './review';
+
 export interface User {
   firstName: string;
   lastName: string;
@@ -6,7 +8,7 @@ export interface User {
   birthDate?: string;
   gender?: string;
   acceptTerms?: boolean;
-  favorites?: number[]; // IDs des films favoris
-  reviews?: Review[];   // Avis laissés
-  role?: 'admin' | 'client'; // Rôle
+  favorites?: number[];
+  reviews?: Review[];
+  role?: 'admin' | 'client';
 }

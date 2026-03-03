@@ -1,1 +1,98 @@
-<p>movie-detail works!</p>
+<div class="detail-page" *ngIf="movie">
+
+  <!-- Toast -->
+  <div class="toast-notif" *ngIf="toast" [ngClass]="toast.type">
+    {{ toast.message }}
+  </div>
+
+  <!-- Header film -->
+  <div class="movie-header">
+    <div class="movie-poster" *ngIf="movie.image">
+      <img [src]="movie.image" [alt]="movie.title" />
+    </div>
+    <div class="movie-poster placeholder-poster" *ngIf="!movie.image">
+      🎬
+    </div>
+
+    <div class="movie-info">
+      <div class="movie-top">
+        <h1>{{ movie.title }}</h1>
+        <button class="fav-btn" (click)="toggleFavorite()" [class.active]="isFavorite">
+          {{ isFavorite ? '❤️' : '🤍' }}
+        </button>
+      </div>
+
+      <div class="movie-meta">
+        <span class="badge-yellow">🎬 {{ movie.director }}</span>
+        <span class="badge-muted">📅 {{ movie.releaseDate | date:'dd/MM/yyyy' }}</span>
+        <span class="badge-yellow" *ngIf="movie.rate">⭐ {{ movie.rate }}/5</span>
+      </div>
+
+      <p class="movie-synopsis">{{ movie.synopsis }}</p>
+
+      <div class="review-stats" *ngIf="reviews.length">
+        <span class="avg-rate">{{ averageRate() }}/5</span>
+        <span class="review-count">{{ reviews.length }} avis</span>
+      </div>
+
+      <div class="detail-actions">
+        <button class="btn-action primary" (click)="showReviewForm = !showReviewForm">
+          {{ showReviewForm ? 'Annuler' : '✍️ Laisser un avis' }}
+        </button>
+        <a class="btn-action secondary" routerLink="/movies">← Retour</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire avis -->
+  <div class="review-form" *ngIf="showReviewForm">
+    <h3>Votre avis</h3>
+    <div class="star-selector">
+      <span *ngFor="let s of [1,2,3,4,5]"
+            (click)="newReview.rate = s"
+            [class.selected]="newReview.rate >= s">★</span>
+    </div>
+    <textarea [(ngModel)]="newReview.comment"
+              placeholder="Partagez votre expérience..."
+              rows="4"></textarea>
+    <button class="btn-action primary" (click)="submitReview()"
+            [disabled]="!newReview.comment">
+      Publier
+    </button>
+  </div>
+
+  <!-- Liste des avis -->
+  <div class="reviews-section">
+    <h3>Avis ({{ reviews.length }})</h3>
+
+    <div class="no-reviews" *ngIf="!reviews.length">
+      <p>Aucun avis pour le moment. Soyez le premier ! 🎬</p>
+    </div>
+
+    <div class="review-card" *ngFor="let review of reviews; let i = index">
+      <div class="review-header">
+        <div class="reviewer-avatar">
+          {{ review.userName.charAt(0).toUpperCase() }}
+        </div>
+        <div class="reviewer-info">
+          <span class="reviewer-name">{{ review.userName }}</span>
+          <span class="review-date">{{ review.date }}</span>
+        </div>
+        <div class="review-stars">
+          <span *ngFor="let s of stars(review.rate)"
+                [class.filled]="s === '★'">{{ s }}</span>
+        </div>
+        <button class="delete-btn" *ngIf="isOwner(review)" (click)="deleteReview(i)">
+          🗑️
+        </button>
+      </div>
+      <p class="review-comment">{{ review.comment }}</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading -->
+<div class="loading" *ngIf="!movie">
+  <p>Chargement...</p>
+</div>
