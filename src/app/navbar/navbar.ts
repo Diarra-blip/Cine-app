@@ -14,7 +14,6 @@ import { AuthService } from '../auth/auth.service';
 export class Navbar {
   @Input({ required: true }) title!: string;
   expanded = false;
-  hoverMenu = false;
 
   constructor(public auth: AuthService, private router: Router) {}
 
@@ -22,12 +21,13 @@ export class Navbar {
     this.expanded = !this.expanded;
   }
 
-  isExpanded(): boolean {
-    return this.expanded || this.hoverMenu;
+  closeMenu(): void {
+    this.expanded = false;
   }
 
   logout(): void {
     this.auth.logout();
+    this.closeMenu();
     this.router.navigate(['/login']);
   }
 }
