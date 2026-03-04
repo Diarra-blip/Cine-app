@@ -45,7 +45,6 @@
                     [min]="minDate" 
                     #relDate="ngModel"
                     onkeydown="return false"
-                    (change)="0"
                     class="form-control" 
                     [class.is-invalid]="relDate.invalid && (relDate.dirty || relDate.touched)" />
                   
@@ -64,16 +63,20 @@
 
             <div class="mb-4">
               <label class="form-label fw-bold">Synopsis</label>
-              <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="10" #synopsis="ngModel"
+              <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="30" #synopsis="ngModel"
                 class="form-control" rows="4" [class.is-invalid]="synopsis.invalid && synopsis.touched" 
-                placeholder="Décrivez brièvement l'histoire du film..."></textarea>
+                placeholder="Décrivez l'histoire du film (minimum 30 caractères)..."></textarea>
               
-              <div class="invalid-feedback" *ngIf="synopsis.errors?.['required']">Veuillez résumer l'histoire.</div>
-              <div class="invalid-feedback" *ngIf="synopsis.errors?.['minlength']">
-                Encore {{ 10 - (movie.synopsis?.length || 0) }} caractères pour guider l'utilisateur.
+              <div class="invalid-feedback" *ngIf="synopsis.errors?.['required']">
+                Veuillez résumer l'histoire.
               </div>
+
+              <div class="invalid-feedback" *ngIf="synopsis.errors?.['minlength']">
+                Le synopsis est trop court. Encore {{ 30 - (movie.synopsis?.length || 0) }} caractères pour valider.
+              </div>
+
               <div class="form-text text-end text-success" *ngIf="synopsis.valid && !synopsis.errors">
-                Synopsis validé !
+                Synopsis validé ({{ movie.synopsis?.length }} caractères) !
               </div>
             </div>
 
@@ -84,7 +87,7 @@
               </button>
               
               <small class="text-center text-muted" *ngIf="movieForm.invalid">
-                * Veuillez corriger les champs en rouge pour débloquer l'enregistrement.
+                * Veuillez remplir correctement tous les champs (synopsis min. 30 car.) pour débloquer l'enregistrement.
               </small>
             </div>
 
