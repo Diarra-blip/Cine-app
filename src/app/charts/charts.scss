@@ -94,3 +94,34 @@
   .charts-grid { grid-template-columns: 1fr; }
   .stat-card .stat-value { font-size: 22px; }
 }
+
+.refresh-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.last-updated {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.refresh-btn {
+  background: rgba(245,197,24,0.15);
+  color: #f5c518;
+  border: 1px solid rgba(245,197,24,0.3);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f5c518;
+    color: #1a1a2e;
+    transform: rotate(180deg);
+  }
+}

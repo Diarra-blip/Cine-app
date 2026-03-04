@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
+import { ViewTrackingService } from '../services/view-tracking';
 import { MovieCard } from './movie-card/movie-card';
 
 @Component({
@@ -15,9 +16,12 @@ import { MovieCard } from './movie-card/movie-card';
 export class Home implements OnInit {
   private readonly moviesApi = inject(MoviesApiService);
   private readonly router = inject(Router);
+  private readonly viewTracking = inject(ViewTrackingService);
 
   movies = signal<Movie[]>([]);
   filteredMovies = signal<Movie[]>([]);
+  mostViewed = signal<any[]>([]);
+  topRated = signal<any[]>([]);
   currentSlide = signal(0);
   searchQuery = '';
 
@@ -29,7 +33,14 @@ export class Home implements OnInit {
     this.moviesApi.getMovies().subscribe(movies => {
       this.movies.set(movies);
       this.filteredMovies.set(movies);
+      this.mostViewed.set(this.viewTracking.getMostViewed(movies));
+      this.topRated.set(this.viewTracking.getTopRated(movies));
     });
+  }
+
+  goToMovie(movie: Movie) {
+    this.viewTracking.incrementView(movie.id!); // ← track le clic
+    this.router.navigate(['/movie', movie.id]);
   }
 
   onSearch() {
@@ -46,10 +57,6 @@ export class Home implements OnInit {
     );
   }
 
-  goToMovie(movie: Movie) {
-    this.router.navigate(['/movie', movie.id]);
-  }
-
   prevSlide(): void {
     this.currentSlide.update(i => i > 0 ? i - 1 : i);
   }
@@ -58,7 +65,7 @@ export class Home implements OnInit {
     this.currentSlide.update(i => i < total - 1 ? i + 1 : i);
   }
 
-  getImageUrl(movie: Movie): string {
+  getImageUrl(movie: any): string {
     return `http://localhost:8080/movies/${movie.id}/image`;
   }
 }

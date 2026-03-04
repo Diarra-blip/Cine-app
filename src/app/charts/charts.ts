@@ -1,7 +1,9 @@
-import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { MoviesApiService } from '../services/movies-api';
 import { CommonModule } from '@angular/common';
+import { interval, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 Chart.register(...registerables);
 
@@ -11,7 +13,7 @@ Chart.register(...registerables);
   templateUrl: './charts.html',
   styleUrl: './charts.scss'
 })
-export class Charts implements OnInit {
+export class Charts implements OnInit, OnDestroy {
   @ViewChild('rateChart', { static: true }) rateChartRef!: ElementRef;
   @ViewChild('yearChart', { static: true }) yearChartRef!: ElementRef;
   @ViewChild('directorChart', { static: true }) directorChartRef!: ElementRef;
@@ -20,28 +22,16 @@ export class Charts implements OnInit {
   @ViewChild('timelineChart', { static: true }) timelineChartRef!: ElementRef;
 
   private readonly moviesApi = inject(MoviesApiService);
+  private subscription!: Subscription;
+
+  // Instances des charts pour pouvoir les détruire
+  private charts: Chart[] = [];
 
   totalMovies = 0;
   avgRate = 0;
   bestMovie = '';
   totalDirectors = 0;
-
-  ngOnInit(): void {
-    this.moviesApi.getMovies().subscribe(movies => {
-      // Stats rapides
-      this.totalMovies = movies.length;
-      this.avgRate = Math.round(movies.reduce((a, m) => a + (m.rate || 0), 0) / movies.length * 10) / 10;
-      this.bestMovie = movies.sort((a, b) => (b.rate || 0) - (a.rate || 0))[0]?.title || '';
-      this.totalDirectors = new Set(movies.map(m => m.director)).size;
-
-      this.createRateChart(movies);
-      this.createYearChart(movies);
-      this.createDirectorChart(movies);
-      this.createRateDistChart(movies);
-      this.createTopChart(movies);
-      this.createTimelineChart(movies);
-    });
-  }
+  lastUpdated = '';
 
   private colors = [
     '#f5c518', '#ff9900', '#17a2b8', '#28a745',
@@ -49,8 +39,55 @@ export class Charts implements OnInit {
     '#e83e8c', '#007bff'
   ];
 
-  createRateChart(movies: any[]): void {
-    new Chart(this.rateChartRef.nativeElement, {
+  ngOnInit(): void {
+    // Charge immédiatement
+    this.loadAndRender();
+
+    // Rafraîchit toutes les 30 secondes
+    this.subscription = interval(30000).pipe(
+      switchMap(() => this.moviesApi.getMovies())
+    ).subscribe(movies => {
+      this.destroyCharts();
+      this.renderAll(movies);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    this.destroyCharts();
+  }
+
+  loadAndRender(): void {
+    this.moviesApi.getMovies().subscribe(movies => {
+      this.destroyCharts();
+      this.renderAll(movies);
+    });
+  }
+
+  destroyCharts(): void {
+    this.charts.forEach(c => c.destroy());
+    this.charts = [];
+  }
+
+  renderAll(movies: any[]): void {
+    // Stats rapides
+    this.totalMovies = movies.length;
+    this.avgRate = Math.round(movies.reduce((a, m) => a + (m.rate || 0), 0) / movies.length * 10) / 10;
+    this.bestMovie = [...movies].sort((a, b) => (b.rate || 0) - (a.rate || 0))[0]?.title || '';
+    this.totalDirectors = new Set(movies.map(m => m.director)).size;
+    this.lastUpdated = new Date().toLocaleTimeString('fr-FR');
+
+    // Crée les charts
+    this.charts.push(this.createRateChart(movies));
+    this.charts.push(this.createYearChart(movies));
+    this.charts.push(this.createDirectorChart(movies));
+    this.charts.push(this.createRateDistChart(movies));
+    this.charts.push(this.createTopChart(movies));
+    this.charts.push(this.createTimelineChart(movies));
+  }
+
+  createRateChart(movies: any[]): Chart {
+    return new Chart(this.rateChartRef.nativeElement, {
       type: 'bar',
       data: {
         labels: movies.map(m => m.title.length > 15 ? m.title.substring(0, 15) + '...' : m.title),
@@ -68,14 +105,12 @@ export class Charts implements OnInit {
           legend: { display: false },
           title: { display: true, text: '⭐ Notes des films', font: { size: 16, weight: 'bold' } }
         },
-        scales: {
-          y: { beginAtZero: true, max: 5 }
-        }
+        scales: { y: { beginAtZero: true, max: 5 } }
       }
     });
   }
 
-  createYearChart(movies: any[]): void {
+  createYearChart(movies: any[]): Chart {
     const years: { [key: string]: number } = {};
     movies.forEach(m => {
       const year = new Date(m.releaseDate).getFullYear().toString();
@@ -83,7 +118,7 @@ export class Charts implements OnInit {
     });
     const sortedYears = Object.keys(years).sort();
 
-    new Chart(this.yearChartRef.nativeElement, {
+    return new Chart(this.yearChartRef.nativeElement, {
       type: 'doughnut',
       data: {
         labels: sortedYears,
@@ -104,14 +139,14 @@ export class Charts implements OnInit {
     });
   }
 
-  createDirectorChart(movies: any[]): void {
+  createDirectorChart(movies: any[]): Chart {
     const directors: { [key: string]: number } = {};
     movies.forEach(m => {
       directors[m.director] = (directors[m.director] || 0) + 1;
     });
     const sorted = Object.entries(directors).sort((a, b) => b[1] - a[1]).slice(0, 8);
 
-    new Chart(this.directorChartRef.nativeElement, {
+    return new Chart(this.directorChartRef.nativeElement, {
       type: 'bar',
       data: {
         labels: sorted.map(([d]) => d),
@@ -130,14 +165,12 @@ export class Charts implements OnInit {
           legend: { display: false },
           title: { display: true, text: '🎬 Films par réalisateur', font: { size: 16, weight: 'bold' } }
         },
-        scales: {
-          x: { beginAtZero: true, ticks: { stepSize: 1 } }
-        }
+        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
       }
     });
   }
 
-  createRateDistChart(movies: any[]): void {
+  createRateDistChart(movies: any[]): Chart {
     const dist: { [key: string]: number } = { '0-1': 0, '1-2': 0, '2-3': 0, '3-4': 0, '4-5': 0 };
     movies.forEach(m => {
       const r = m.rate || 0;
@@ -148,7 +181,7 @@ export class Charts implements OnInit {
       else dist['4-5']++;
     });
 
-    new Chart(this.rateDistChartRef.nativeElement, {
+    return new Chart(this.rateDistChartRef.nativeElement, {
       type: 'polarArea',
       data: {
         labels: Object.keys(dist),
@@ -169,10 +202,10 @@ export class Charts implements OnInit {
     });
   }
 
-  createTopChart(movies: any[]): void {
+  createTopChart(movies: any[]): Chart {
     const top = [...movies].sort((a, b) => (b.rate || 0) - (a.rate || 0)).slice(0, 5);
 
-    new Chart(this.topChartRef.nativeElement, {
+    return new Chart(this.topChartRef.nativeElement, {
       type: 'radar',
       data: {
         labels: top.map(m => m.title.length > 12 ? m.title.substring(0, 12) + '...' : m.title),
@@ -191,25 +224,22 @@ export class Charts implements OnInit {
         plugins: {
           title: { display: true, text: '🏆 Top 5 des meilleurs films', font: { size: 16, weight: 'bold' } }
         },
-        scales: {
-          r: { beginAtZero: true, max: 5 }
-        }
+        scales: { r: { beginAtZero: true, max: 5 } }
       }
     });
   }
 
-  createTimelineChart(movies: any[]): void {
+  createTimelineChart(movies: any[]): Chart {
     const byYear: { [key: string]: number } = {};
     movies.forEach(m => {
       const year = new Date(m.releaseDate).getFullYear().toString();
       byYear[year] = (byYear[year] || 0) + 1;
     });
     const sortedYears = Object.keys(byYear).sort();
-    // Cumul
     let cumul = 0;
     const cumulData = sortedYears.map(y => { cumul += byYear[y]; return cumul; });
 
-    new Chart(this.timelineChartRef.nativeElement, {
+    return new Chart(this.timelineChartRef.nativeElement, {
       type: 'line',
       data: {
         labels: sortedYears,
@@ -230,9 +260,7 @@ export class Charts implements OnInit {
         plugins: {
           title: { display: true, text: '📈 Évolution du catalogue', font: { size: 16, weight: 'bold' } }
         },
-        scales: {
-          y: { beginAtZero: true, ticks: { stepSize: 1 } }
-        }
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
       }
     });
   }

@@ -1,8 +1,15 @@
-<div class="charts-page">
-  <div class="charts-header">
-    <h1>📊 Statistiques</h1>
-    <p>Vue d'ensemble du catalogue de films</p>
+<div class="charts-header">
+  <h1>📊 Statistiques</h1>
+  <p>Vue d'ensemble du catalogue de films</p>
+  <div class="refresh-bar">
+    <span class="last-updated" *ngIf="lastUpdated">
+      🕐 Mis à jour à {{ lastUpdated }}
+    </span>
+    <button class="refresh-btn" (click)="loadAndRender()">
+      🔄 Actualiser
+    </button>
   </div>
+</div>
 
   <!-- Cartes stats rapides -->
   <div class="stats-grid">
@@ -49,4 +56,6 @@
       <canvas #timelineChart></canvas>
     </div>
   </div>
-</div>
+
+
+
