@@ -78,13 +78,16 @@
         <a class="dropdown-item" routerLink="/charts" (click)="closeMenu()">
           <span class="item-icon">📊</span> Statistiques
         </a>
+        <a class="dropdown-item" routerLink="/admin" (click)="closeMenu()">
+          <span class="item-icon">⚙️</span> Panel Admin
+        </a>
       </ng-container>
       <ng-container *ngIf="auth.isClient()">
         <a class="dropdown-item" routerLink="/catalog" (click)="closeMenu()">
           <span class="item-icon">🎥</span> Catalogue films
         </a>
         <a class="dropdown-item" routerLink="/favorites" (click)="closeMenu()">
-          <span class="item-icon">❤️</span> Mes favoris
+          <span class="item-icon">❤</span> Mes favoris
         </a>
       </ng-container>
       <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
