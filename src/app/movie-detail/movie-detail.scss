@@ -112,6 +112,16 @@
   font-weight: 600;
 }
 
+.badge-category {
+  background: #00adb5; // Un joli bleu turquoise
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
 .badge-muted {
   background: var(--input-bg);
   color: var(--text-muted);

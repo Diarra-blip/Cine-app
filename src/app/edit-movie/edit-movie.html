@@ -16,6 +16,20 @@
     <input type="date" id="releaseDate" name="releaseDate" [(ngModel)]="movie.releaseDate"/>
   </div>
 
+  <div class="mb-3">
+    <label class="form-label fw-bold">Catégorie</label> <div class="input-group">
+    <span class="input-group-text bg-light text-muted">🏷️</span>
+    <select name="category" [(ngModel)]="movie.category" required class="form-select">
+      <option value="" disabled>-- Choisir une catégorie --</option>
+      <option value="Action">Action</option>
+      <option value="Comédie">Comédie</option>
+      <option value="Drame">Drame</option>
+      <option value="Horreur">Horreur</option>
+      <option value="Science-Fiction">Science-Fiction</option>
+    </select>
+  </div>
+  </div>
+
   <div class="d-flex flex-column w-50">
     <label for="synopsis">Synopsis</label>
     <input type="text" id="synopsis" name="synopsis" [(ngModel)]="movie.synopsis"/>

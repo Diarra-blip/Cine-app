@@ -1,38 +1,43 @@
 <div class="container mt-4">
   <h2>Gestion de films</h2>
 
-
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>Titre</th>
-        <th>Date</th>
-        <th>Réalisateur</th>
-        <th>Note</th>
-        <th>Synopsis</th>
-        <th>Actions</th>
-      </tr>
+    <tr>
+      <th>ID</th>
+      <th>Titre</th>
+      <th>Catégorie</th>
+      <th>Date</th>
+      <th>Réalisateur</th>
+      <th>Note</th>
+      <th>Synopsis</th>
+      <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-      @for (movie of movies(); track movie.id) {
-        <tr>
-          <td>{{ movie.id }}</td>
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.releaseDate | date:'dd/MM/yy' }}</td>
-          <td>{{ movie.director }}</td>
-          <td>{{ movie.rate }}</td>
-          <td>{{ movie.synopsis }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-2" [routerLink]="'/edit-movie/' + movie.id">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="deleteMovie(movie.id)">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      }
+    @for (movie of movies(); track movie.id) {
+    <tr>
+      <td>{{ movie.id }}</td>
+      <td>{{ movie.title }}</td>
+      <td>
+  <span class="badge bg-info text-dark">
+    {{ movie.category ? movie.category : 'VIDE' }}
+  </span>
+      </td>
+      <td>{{ movie.releaseDate | date:'dd/MM/yy' }}</td>
+      <td>{{ movie.director }}</td>
+      <td>{{ movie.rate }}</td>
+      <td>{{ movie.synopsis }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm me-2" [routerLink]="'/edit-movie/' + movie.id">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deleteMovie(movie.id)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    }
     </tbody>
   </table>
 </div>

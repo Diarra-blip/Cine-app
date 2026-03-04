@@ -24,12 +24,15 @@ export class EditMovie implements OnInit {
     synopsis: '',
     id: undefined,
     rate: undefined,
-    image: undefined
+    image: undefined,
+    category: ''
   };
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.moviesApi.getMovie(id).subscribe(movie => this.movie = movie);
+    this.moviesApi.getMovie(id).subscribe(movieFromServer => {
+      this.movie = { ...movieFromServer, category: movieFromServer.category || '' };
+    });
   }
 
   updateMovie(): void {
