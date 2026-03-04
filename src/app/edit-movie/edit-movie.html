@@ -1,25 +1,62 @@
-<div class="container mt-4">
-  <h1>Modifier un film</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-9"> 
+      <div class="card shadow-lg border-0 bg-dark text-white">
+        
+        <div class="card-header bg-warning text-dark text-center py-4">
+          <h2 class="h4 mb-0 fw-bold">✏️ Modifier le Film : {{ movie.title }}</h2>
+        </div>
+        
+        <div class="card-body p-5"> 
+          <form #editForm="ngForm">
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold text-uppercase small text-muted">Titre du film</label>
+              <div class="input-group">
+                <span class="input-group-text bg-secondary text-white border-0 px-3">Aa</span>
+                <input type="text" name="title" [(ngModel)]="movie.title" required 
+                  class="form-control bg-dark text-white border-secondary p-3" />
+              </div>
+            </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="title">Titre</label>
-    <input type="text" id="title" name="title" [(ngModel)]="movie.title"/>
-  </div>
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label class="form-label fw-bold text-uppercase small text-muted">Réalisateur</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-secondary text-white border-0">👤</span>
+                  <input type="text" name="director" [(ngModel)]="movie.director" required
+                    class="form-control bg-dark text-white border-secondary p-3" />
+                </div>
+              </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="director">Réalisateur</label>
-    <input type="text" id="director" name="director" [(ngModel)]="movie.director"/>
-  </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold text-uppercase small text-muted">Date de sortie</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-secondary text-white border-0">📅</span>
+                  <input type="date" name="releaseDate" [(ngModel)]="movie.releaseDate" 
+                    required [max]="maxLimitDate" [min]="minDate" onkeydown="return false"
+                    class="form-control bg-dark text-white border-secondary p-3" />
+                </div>
+              </div>
+            </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="releaseDate">Date de sortie</label>
-    <input type="date" id="releaseDate" name="releaseDate" [(ngModel)]="movie.releaseDate"/>
-  </div>
+            <div class="mb-5">
+              <label class="form-label fw-bold text-uppercase small text-muted">Synopsis</label>
+              <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="10" 
+                class="form-control bg-dark text-white border-secondary p-3" rows="5"></textarea>
+            </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="synopsis">Synopsis</label>
-    <input type="text" id="synopsis" name="synopsis" [(ngModel)]="movie.synopsis"/>
-  </div>
+            <div class="d-grid gap-3">
+              <button type="button" class="btn btn-warning btn-lg fw-bold py-3 shadow" 
+                (click)="updateMovie()" [disabled]="editForm.invalid">
+                ENREGISTRER LES MODIFICATIONS
+              </button>
+              <button type="button" class="btn btn-link text-muted" routerLink="/movies">Annuler</button>
+            </div>
 
-  <button class="btn btn-warning mt-3" (click)="updateMovie()">Modifier</button>
+          </form>
+        </div> 
+      </div> 
+    </div> 
+  </div> 
 </div>
