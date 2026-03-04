@@ -1,32 +1,32 @@
-@if (movies$ | async; as movies) {
-  <div class="carousel-wrapper">
-    <div class="carousel-track" [style.transform]="'translateX(-' + currentSlide() * 320 + 'px)'">
-      @for (movie of movies; track movie.id) {
-        <div class="carousel-slide">
-          <div class="carousel-card">
-            @if(movie.image) {
-              <img [src]="'http://localhost:8080/movies/' + movie.id + '/image'" [alt]="movie.title">
-            }
-            <div class="carousel-info">
-              <h5>{{ movie.title }}</h5>
-              <p>{{ movie.director }}</p>
-              <span class="carousel-rate">{{ movie.rate }}/5</span>
-            </div>
-          </div>
+@if (movies().length > 0) {
+<div class="carousel-wrapper">
+  <div class="carousel-track" [style.transform]="'translateX(-' + currentSlide() * 320 + 'px)'">
+    @for (movie of movies(); track movie.id) {
+    <div class="carousel-slide">
+      <div class="carousel-card">
+        @if(movie.image) {
+        <img [src]="'http://localhost:8080/movies/' + movie.id + '/image'" [alt]="movie.title">
+        }
+        <div class="carousel-info">
+          <h5>{{ movie.title }}</h5>
+          <p>{{ movie.director }}</p>
+          <span class="carousel-rate">{{ movie.rate }}/5</span>
         </div>
-      }
+      </div>
     </div>
-    <button class="carousel-btn prev" (click)="prevSlide()">
-      <i class="bi bi-chevron-left"></i>
-    </button>
-    <button class="carousel-btn next" (click)="nextSlide(movies.length)">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-
-  <div class="cards-container">
-    @for (movie of movies; track movie.id) {
-      <app-movie-card [movie]="movie"></app-movie-card>
     }
   </div>
+  <button class="carousel-btn prev" (click)="prevSlide()">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  <button class="carousel-btn next" (click)="nextSlide(movies().length)">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+</div>
+
+<div class="cards-container">
+  @for (movie of movies(); track movie.id) {
+  <app-movie-card [movie]="movie"></app-movie-card>
+  }
+</div>
 }
