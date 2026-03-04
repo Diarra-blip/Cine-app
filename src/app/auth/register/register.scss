@@ -1,4 +1,4 @@
-.auth-container {
+﻿.auth-container {
   max-width: 420px;
   margin: 60px auto;
   padding: 48px 40px;
@@ -107,14 +107,14 @@ input {
   margin-top: 6px;
   padding-left: 4px;
 
-  &::before { content: '⚠ '; }
+  &::before { content: 'âš  '; }
 }
 
 .eye-btn {
    position: absolute;
    right: 14px;
-   top: 14px; /* ← fixe en haut plutôt que centré */
-   transform: none; /* ← supprime le translateY */
+   top: 14px; /* â† fixe en haut plutÃ´t que centrÃ© */
+   transform: none; /* â† supprime le translateY */
    background: none;
    border: none;
    cursor: pointer;
@@ -122,7 +122,7 @@ input {
    padding: 0;
    width: auto;
    margin: 0;
-   opacity: 0.8; /* ← toujours visible */
+   opacity: 0.8; /* â† toujours visible */
    transition: opacity 0.2s;
 
    &:hover { opacity: 1; transform: scale(1.1); }
@@ -133,7 +133,7 @@ button[type="submit"] {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  color: #1a1a2e;
+  color: var(--button-text);
   border: none;
   border-radius: 12px;
   margin-top: 20px;
@@ -159,3 +159,5 @@ button[type="submit"] {
     box-shadow: none;
   }
 }
+
+

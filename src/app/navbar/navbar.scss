@@ -1,5 +1,5 @@
-.douceur-navbar {
-  background: linear-gradient(90deg, #0f0f1a, #1a1a2e, #0f0f1a);
+﻿.douceur-navbar {
+  background: rgba(var(--accent-rgb),0.1);
   padding: 0 24px;
   height: 64px;
   display: flex;
@@ -120,7 +120,7 @@
 }
 
 .search-wrapper::before {
-  content: '🔍';
+  content: 'ðŸ”';
   position: absolute;
   left: 14px;
   top: 50%;
@@ -130,7 +130,7 @@
   z-index: 1;
 }
 
-// Résultats
+// RÃ©sultats
 .search-results {
   position: absolute;
   top: calc(100% + 8px);
@@ -188,8 +188,8 @@
 }
 
 .hamburger {
-  background: transparent;
-  border: 1.5px solid rgba(var(--accent-rgb),0.3);
+  background: rgba(var(--accent-rgb), 0.08);
+    border: 1.5px solid rgba(var(--accent-rgb), 0.4);
   cursor: pointer;
   padding: 7px;
   display: flex;
@@ -203,15 +203,15 @@
   transition: all 0.2s;
 
   &:hover {
-    border-color: var(--accent);
-    background: rgba(var(--accent-rgb),0.1);
+   border-color: var(--accent);
+   background: rgba(var(--accent-rgb), 0.18);
   }
 
   span {
     display: block;
     height: 2px;
     width: 18px;
-    background: var(--accent);
+    background:rgba(var(--accent-rgb),0.1);
     border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
@@ -309,7 +309,7 @@
   z-index: 199;
 }
 
-// Bouton thème
+// Bouton thÃ¨me
 .theme-toggle {
   background: rgba(255,255,255,0.05);
   border: 1.5px solid rgba(var(--accent-rgb),0.2);
@@ -328,12 +328,12 @@
 }
 
 @media (max-width: 1024px) {
-  .nav-links { display: none; } // ← les liens passent dans le hamburger
+  .nav-links { display: none; } // â† les liens passent dans le hamburger
   .search-wrapper { max-width: 200px; }
 }
 
 @media (max-width: 600px) {
-  .search-wrapper { display: none; } // ← la recherche disparait, accessible via hamburger
+  .search-wrapper { display: none; } // â† la recherche disparait, accessible via hamburger
   .douceur-logo { font-size: 16px; letter-spacing: 1px; }
 }
 
@@ -392,3 +392,5 @@
     font-weight: 700;
   }
 }
+
+

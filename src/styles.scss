@@ -1,7 +1,7 @@
-@import url(bootstrap);
+﻿@import url(bootstrap);
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-// ===== THÈME SOMBRE (défaut) =====
+// ===== THÃˆME SOMBRE (dÃ©faut) =====
 [data-theme="dark"] {
   --bg-primary:    #0f0f1a;
   --bg-card:       #1a1a2e;
@@ -14,7 +14,7 @@
   --accent-hover:  var(--accent-hover);
 }
 
-// ===== THÈME CLAIR =====
+// ===== THÃˆME CLAIR =====
 [data-theme="light"] {
   --bg-primary:    #f5f5f5;
   --bg-card:       #ffffff;
@@ -27,7 +27,7 @@
   --accent-hover:  var(--accent-hover);
 }
 
-// ===== THÈME OCÉAN =====
+// ===== THÃˆME OCÃ‰AN =====
 [data-theme="ocean"] {
   --bg-primary:    #0a1628;
   --bg-card:       #0d2137;
@@ -40,7 +40,7 @@
   --accent-hover:  #00a8cc;
 }
 
-// ===== THÈME VIOLET =====
+// ===== THÃˆME VIOLET =====
 [data-theme="purple"] {
   --bg-primary:    #0d0a1a;
   --bg-card:       #1a1030;
@@ -80,3 +80,15 @@ body {
 [data-theme="purple"] {
   --accent-rgb: 179, 102, 255;
 }
+
+
+:root {
+  --text-primary: 34, 34, 34;    // gris foncé pour light mode
+  --text-secondary: 85, 85, 85;  // gris moyen
+}
+
+[data-theme="dark"] {
+  --text-primary: 255, 255, 255; // blanc pour dark mode
+  --text-secondary: 200, 200, 200;
+}
+

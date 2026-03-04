@@ -1,4 +1,4 @@
-.auth-container {
+﻿.auth-container {
   max-width: 420px;
   margin: 60px auto;
   padding: 48px 40px;
@@ -107,10 +107,10 @@ input {
   margin-top: 6px;
   padding-left: 4px;
 
-  &::before { content: '⚠ '; }
+  &::before { content: 'âš  '; }
 }
 
-// Bouton œil
+// Bouton Å“il
 .eye-btn {
    position: absolute;
    right: 14px;
@@ -134,7 +134,7 @@ button[type="submit"] {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  color: #1a1a2e;
+  color: var(--button-text);
   border: none;
   border-radius: 12px;
   margin-top: 20px;
@@ -160,3 +160,5 @@ button[type="submit"] {
     box-shadow: none;
   }
 }
+
+

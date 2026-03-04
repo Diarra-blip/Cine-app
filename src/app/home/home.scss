@@ -1,11 +1,11 @@
-.home-page {
+﻿.home-page {
   min-height: 100vh;
   background: var(--bg-primary);
 }
 
 // ===== Hero =====
 .hero-section {
-  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+  background: rgba(var(--accent-rgb),0.1);
   padding: 80px 40px;
   text-align: center;
   position: relative;
@@ -56,7 +56,7 @@
   padding: 16px 24px;
   border-radius: 50px;
   border: 2px solid rgba(var(--accent-rgb),0.3);
-  background: rgba(255,255,255,0.07);
+  background: rgba(var(--accent-rgb),0.1);
   color: #eaeaea;
   font-size: 16px;
   box-sizing: border-box;
@@ -68,7 +68,7 @@
   &:focus {
     outline: none;
     border-color: var(--accent);
-    background: rgba(255,255,255,0.1);
+    background: rgba(var(--accent-rgb),0.1);
     box-shadow: 0 0 0 4px rgba(var(--accent-rgb),0.15);
   }
 }
@@ -81,7 +81,7 @@
 }
 
 .section-title {
-  color: var(--text-primary);
+  color: rgba(var(--accent-rgb),0.1);
   font-size: 22px;
   font-weight: 800;
   margin-bottom: 24px;
@@ -217,7 +217,7 @@
   p { font-size: 18px; margin-bottom: 16px; }
 
   button {
-    background: var(--accent);
+    background: rgba(var(--accent-rgb),0.1);
     color: #1a1a2e;
     border: none;
     padding: 10px 24px;
@@ -271,16 +271,16 @@
   overflow-x: auto;
   padding-bottom: 8px;
 
-  // Scrollbar stylée
+  // Scrollbar stylÃ©e
   &::-webkit-scrollbar {
     height: 4px;
   }
   &::-webkit-scrollbar-track {
-    background: var(--input-bg);
+    background: rgba(var(--accent-rgb),0.1);
     border-radius: 2px;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--accent);
+    background: rgba(var(--accent-rgb),0.1);
     border-radius: 2px;
   }
 }
@@ -290,7 +290,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  background: var(--bg-card);
+  background: rgba(var(--accent-rgb),0.1);
   border-radius: 12px;
   padding: 16px 12px;
   cursor: pointer;
@@ -424,3 +424,47 @@
     transform: translateY(0);
   }
 }
+
+/* ================= THEME VARIABLES ================= */
+
+:root {
+
+  /* Backgrounds */
+  --bg-primary: #f5f6fa;
+  --bg-card: #ffffff;
+  --bg-soft: #eef1f7;
+
+  /* Text */
+  --text-primary: #1a1a2e;
+  --text-secondary: #555;
+  --text-muted: #777;
+
+  /* Accent */
+  --accent: rgb(var(--accent));
+  --accent-hover: #ffd84d;
+  --accent-rgb: 245, 197, 24;
+
+  /* Borders */
+  --border-color: #e2e6ef;
+}
+
+/* ================= DARK MODE ================= */
+
+[data-theme="dark"] {
+
+  --bg-primary: #0f1120;
+  --bg-card: #171a2f;
+  --bg-soft: #1f223a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cfcfe8;
+  --text-muted: #9a9ab0;
+
+  --accent: rgb(var(--accent));
+  --accent-hover: #ffd84d;
+  --accent-rgb: 245, 197, 24;
+
+  --border-color: #2a2f4a;
+}
+
+

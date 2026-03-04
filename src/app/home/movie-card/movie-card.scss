@@ -1,4 +1,4 @@
-.movie-card {
+﻿.movie-card {
   cursor: pointer;
   transition: transform 0.3s ease;
   animation: fadeUp 0.4s ease;
@@ -94,3 +94,5 @@
   from { transform: translateY(16px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
+
+
