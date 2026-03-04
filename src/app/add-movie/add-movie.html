@@ -14,9 +14,10 @@
               <div class="input-group">
                 <span class="input-group-text bg-light text-muted">Aa</span>
                 <input type="text" name="title" [(ngModel)]="movie.title" required minlength="2" #title="ngModel"
-                  class="form-control" [class.is-invalid]="title.invalid && title.touched" placeholder="Ex: Inception" />
+                  class="form-control" [class.is-invalid]="title.invalid && title.touched" 
+                  placeholder="Ex: Inception" />
                 <div class="invalid-feedback">
-                  Le titre est obligatoire (min. 2 caractères).
+                  Le titre est obligatoire (minimum 2 caractères).
                 </div>
               </div>
             </div>
@@ -27,9 +28,10 @@
                 <div class="input-group">
                   <span class="input-group-text bg-light text-muted">👤</span>
                   <input type="text" name="director" [(ngModel)]="movie.director" required minlength="3" #director="ngModel"
-                    class="form-control" [class.is-invalid]="director.invalid && director.touched" placeholder="Nom du réalisateur" />
+                    class="form-control" [class.is-invalid]="director.invalid && director.touched" 
+                    placeholder="Nom du réalisateur" />
                   <div class="invalid-feedback" *ngIf="director.errors?.['required']">Le nom est requis.</div>
-                  <div class="invalid-feedback" *ngIf="director.errors?.['minlength']">Précisez le nom (min. 3 car.).</div>
+                  <div class="invalid-feedback" *ngIf="director.errors?.['minlength']">Précisez le nom complet (min. 3 car.).</div>
                 </div>
               </div>
 
@@ -38,11 +40,24 @@
                 <div class="input-group">
                   <span class="input-group-text bg-light text-muted">📅</span>
                   <input type="date" name="releaseDate" [(ngModel)]="movie.releaseDate" 
-                    required [max]="today" min="1895-12-28" #relDate="ngModel"
-                    class="form-control" [class.is-invalid]="relDate.invalid && (relDate.dirty || relDate.touched)" />
-                  <div class="invalid-feedback" *ngIf="relDate.errors?.['max']">Impossible de choisir le futur !</div>
-                  <div class="invalid-feedback" *ngIf="relDate.errors?.['min']">Le cinéma n'existait pas encore.</div>
-                  <div class="invalid-feedback" *ngIf="relDate.errors?.['required']">La date est obligatoire.</div>
+                    required 
+                    [max]="maxLimitDate" 
+                    [min]="minDate" 
+                    #relDate="ngModel"
+                    onkeydown="return false"
+                    (change)="0"
+                    class="form-control" 
+                    [class.is-invalid]="relDate.invalid && (relDate.dirty || relDate.touched)" />
+                  
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['max']">
+                    Maximum 5 ans dans le futur ({{ maxLimitDate | date:'yyyy' }}).
+                  </div>
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['min']">
+                    Le cinéma a débuté en 1895.
+                  </div>
+                  <div class="invalid-feedback" *ngIf="relDate.errors?.['required']">
+                    La date est obligatoire.
+                  </div>
                 </div>
               </div>
             </div>
@@ -51,13 +66,15 @@
               <label class="form-label fw-bold">Synopsis</label>
               <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="10" #synopsis="ngModel"
                 class="form-control" rows="4" [class.is-invalid]="synopsis.invalid && synopsis.touched" 
-                placeholder="Décrivez brièvement l'histoire..."></textarea>
+                placeholder="Décrivez brièvement l'histoire du film..."></textarea>
               
               <div class="invalid-feedback" *ngIf="synopsis.errors?.['required']">Veuillez résumer l'histoire.</div>
               <div class="invalid-feedback" *ngIf="synopsis.errors?.['minlength']">
                 Encore {{ 10 - (movie.synopsis?.length || 0) }} caractères pour guider l'utilisateur.
               </div>
-              <div class="form-text text-end" *ngIf="synopsis.valid">Parfait !</div>
+              <div class="form-text text-end text-success" *ngIf="synopsis.valid && !synopsis.errors">
+                Synopsis validé !
+              </div>
             </div>
 
             <div class="d-grid gap-2">
@@ -65,8 +82,9 @@
                 (click)="addMovie()" [disabled]="movieForm.invalid">
                 ➕ Enregistrer le film
               </button>
+              
               <small class="text-center text-muted" *ngIf="movieForm.invalid">
-                * Veuillez corriger les champs en rouge pour enregistrer.
+                * Veuillez corriger les champs en rouge pour débloquer l'enregistrement.
               </small>
             </div>
 
