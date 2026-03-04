@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
 import { ToasterService } from '../services/toaster';
 
 @Component({
   selector: 'app-edit-movie',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './edit-movie.html',
   styleUrl: './edit-movie.scss'
 })

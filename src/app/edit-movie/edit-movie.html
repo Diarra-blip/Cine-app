@@ -1,39 +1,85 @@
-<div class="container mt-4">
-  <h1>Modifier un film</h1>
+<div class="edit-page">
+  <div class="edit-container">
 
-  <div class="d-flex flex-column w-50">
-    <label for="title">Titre</label>
-    <input type="text" id="title" name="title" [(ngModel)]="movie.title"/>
-  </div>
+    <!-- Header -->
+    <div class="edit-header">
+      <h1>✏️ Modifier un film</h1>
+      <p>Mettez à jour les informations du film</p>
+    </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="director">Réalisateur</label>
-    <input type="text" id="director" name="director" [(ngModel)]="movie.director"/>
-  </div>
+    <!-- Formulaire -->
+    <div class="form-body">
 
-  <div class="d-flex flex-column w-50">
-    <label for="releaseDate">Date de sortie</label>
-    <input type="date" id="releaseDate" name="releaseDate" [(ngModel)]="movie.releaseDate"/>
-  </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>🎬 Titre</label>
+          <input type="text" name="title" [(ngModel)]="movie.title" placeholder="Titre du film" />
+        </div>
 
-  <div class="mb-3">
-    <label class="form-label fw-bold">Catégorie</label> <div class="input-group">
-    <span class="input-group-text bg-light text-muted">🏷️</span>
-    <select name="category" [(ngModel)]="movie.category" required class="form-select">
-      <option value="" disabled>-- Choisir une catégorie --</option>
-      <option value="Action">Action</option>
-      <option value="Comédie">Comédie</option>
-      <option value="Drame">Drame</option>
-      <option value="Horreur">Horreur</option>
-      <option value="Science-Fiction">Science-Fiction</option>
-    </select>
-  </div>
-  </div>
+        <div class="form-group">
+          <label>🎥 Réalisateur</label>
+          <input type="text" name="director" [(ngModel)]="movie.director" placeholder="Nom du réalisateur" />
+        </div>
+      </div>
 
-  <div class="d-flex flex-column w-50">
-    <label for="synopsis">Synopsis</label>
-    <input type="text" id="synopsis" name="synopsis" [(ngModel)]="movie.synopsis"/>
-  </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>📅 Date de sortie</label>
+          <input type="date" name="releaseDate" [(ngModel)]="movie.releaseDate" />
+        </div>
 
-  <button class="btn btn-warning mt-3" (click)="updateMovie()">Modifier</button>
+        <div class="form-group">
+          <label>🏷️ Catégorie</label>
+          <select name="category" [(ngModel)]="movie.category">
+            <option value="" disabled>-- Choisir une catégorie --</option>
+            <option value="Action">🔥 Action</option>
+            <option value="Comédie">😂 Comédie</option>
+            <option value="Drame">🎭 Drame</option>
+            <option value="Horreur">👻 Horreur</option>
+            <option value="Science-Fiction">🚀 Science-Fiction</option>
+            <option value="Romance">❤️ Romance</option>
+            <option value="Thriller">🔪 Thriller</option>
+            <option value="Animation">🎨 Animation</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label>📝 Synopsis</label>
+        <textarea name="synopsis" [(ngModel)]="movie.synopsis"
+                  placeholder="Décrivez le film..." rows="4"></textarea>
+      </div>
+
+      <div class="form-group full-width">
+        <label>🖼️ URL de l'image</label>
+        <input type="text" name="image" [(ngModel)]="movie.image"
+               placeholder="https://..." />
+        <div class="image-preview" *ngIf="movie.image">
+          <img [src]="movie.image" alt="Aperçu"
+               (error)="$any($event.target).style.display='none'" />
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label>⭐ Note (0 - 5)</label>
+        <div class="rate-wrapper">
+          <input type="range" name="rate" [(ngModel)]="movie.rate"
+                 min="0" max="5" step="0.1" class="rate-slider" />
+          <span class="rate-value">{{ movie.rate }}/5</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button class="btn-submit" (click)="updateMovie()">
+        💾 Sauvegarder les modifications
+      </button>
+      <a class="btn-cancel" routerLink="/movies">
+        ✕ Annuler
+      </a>
+    </div>
+
+  </div>
 </div>
