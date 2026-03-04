@@ -5,17 +5,51 @@ import { User } from '../models/user';
 export class AuthService {
   currentUser = signal<User | null>(null);
 
-  register(user: User) {
-    user.role = 'client'; // Par défaut un nouvel inscrit est client
-    localStorage.setItem('user', JSON.stringify(user));
+ constructor() {
+   // Migration des anciens comptes stockés sous 'user'
+   const oldUser = localStorage.getItem('user');
+   if (oldUser) {
+     const user: User = JSON.parse(oldUser);
+     if (user.email) {
+       localStorage.setItem(`user_${user.email}`, JSON.stringify(user));
+       localStorage.removeItem('user');
+     }
+   }
+
+   // Crée le compte admin par défaut s'il n'existe pas
+   const admin: User = {
+     firstName: 'Admin',
+     lastName: 'Takima',
+     email: 'admin@takima.fr',
+     password: 'admin123',
+     role: 'admin'
+   };
+   if (!localStorage.getItem(`user_${admin.email}`)) {
+     localStorage.setItem(`user_${admin.email}`, JSON.stringify(admin));
+   }
+
+   // Restaure la session si l'utilisateur était connecté
+   const session = localStorage.getItem('session');
+   if (session) {
+     this.currentUser.set(JSON.parse(session));
+   }
+ }
+
+  register(user: User): boolean {
+    const key = `user_${user.email}`;
+    if (localStorage.getItem(key)) return false; // email déjà utilisé
+    user.role = 'client';
+    localStorage.setItem(key, JSON.stringify(user));
+    return true;
   }
 
   login(email: string, password: string): boolean {
-    const stored = localStorage.getItem('user');
+    const stored = localStorage.getItem(`user_${email}`);
     if (!stored) return false;
     const user: User = JSON.parse(stored);
-    if (user.email === email && user.password === password) {
+    if (user.password === password) {
       this.currentUser.set(user);
+      localStorage.setItem('session', JSON.stringify(user)); // garde la session
       return true;
     }
     return false;
@@ -23,6 +57,7 @@ export class AuthService {
 
   logout() {
     this.currentUser.set(null);
+    localStorage.removeItem('session');
   }
 
   isLoggedIn() {

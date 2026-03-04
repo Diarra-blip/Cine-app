@@ -26,7 +26,11 @@ export class Register {
       this.error = 'Les mots de passe ne correspondent pas';
       return;
     }
-    this.auth.register(this.user);
+    const success = this.auth.register(this.user);
+    if (!success) {
+      this.error = 'Cet email est déjà utilisé';
+      return;
+    }
     this.router.navigate(['/login']);
   }
 }
