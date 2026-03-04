@@ -21,7 +21,7 @@ export class AddMovie implements OnInit {
   // Initialisation des limites de dates
   today: string = new Date().toISOString().split('T')[0];
   minDate: string = '1895-12-28';
-  maxLimitDate: string = ''; 
+  maxLimitDate: string = '';
 
   movie: Movie = {
     title: '',
@@ -30,13 +30,14 @@ export class AddMovie implements OnInit {
     synopsis: '',
     id: undefined,
     rate: 0,
-    image: ''
+    image: '',
+    category: ''
   };
 
   ngOnInit(): void {
     // Calcul de la limite à +5 ans pour les films à venir
     const future = new Date();
-    future.setFullYear(future.getFullYear() + 5); 
+    future.setFullYear(future.getFullYear() + 5);
     this.maxLimitDate = future.toISOString().split('T')[0];
   }
 

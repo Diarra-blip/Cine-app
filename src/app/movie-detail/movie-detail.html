@@ -24,6 +24,7 @@
       </div>
 
       <div class="movie-meta">
+        <span class="badge-category" *ngIf="movie.category">🏷️ {{ movie.category }}</span>
         <span class="badge-yellow">🎬 {{ movie.director }}</span>
         <span class="badge-muted">📅 {{ movie.releaseDate | date:'dd/MM/yyyy' }}</span>
         <span class="badge-yellow" *ngIf="movie.rate">⭐ {{ movie.rate }}/5</span>
