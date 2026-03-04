@@ -1,5 +1,5 @@
 // ===== Variables =====
-$yellow: #f5c518;
+$yellow: var(--accent);
 $dark: var(--bg-primary);
 $dark-card: var(--bg-card);
 $text-light: var(--text-primary);
@@ -114,10 +114,10 @@ $blue: #3182ce;
 }
 
 .douceur-primary {
-  background: linear-gradient(135deg, #f5c518, #ff9900);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: #1a1a2e;
-  box-shadow: 0 4px 14px rgba(245,197,24,0.3);
-  &:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,197,24,0.45); }
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.3);
+  &:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--accent-rgb),0.45); }
 }
 
 .douceur-danger {
@@ -130,7 +130,7 @@ $blue: #3182ce;
   background: transparent;
   border: 2px solid var(--border-color);
   color: var(--text-primary);
-  &:hover { border-color: #f5c518; color: #f5c518; }
+  &:hover { border-color: var(--accent); color: var(--accent); }
 }
 
 // Stats
@@ -154,8 +154,8 @@ $blue: #3182ce;
   &:hover { transform: translateY(-4px); }
 
   &.yellow {
-    background: rgba(245,197,24,0.08);
-    border: 1.5px solid rgba(245,197,24,0.2);
+    background: rgba(var(--accent-rgb),0.08);
+    border: 1.5px solid rgba(var(--accent-rgb),0.2);
   }
 
   &.red {
@@ -168,7 +168,7 @@ $blue: #3182ce;
   .stat-label { color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
   .stat-link {
-    color: #f5c518;
+    color: var(--accent);
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
@@ -252,8 +252,8 @@ $blue: #3182ce;
   transition: all 0.2s;
 
   &:hover {
-    border-color: #f5c518;
-    color: #f5c518;
+    border-color: var(--accent);
+    color: var(--accent);
     transform: translateX(4px);
   }
 }
@@ -292,8 +292,8 @@ $blue: #3182ce;
 
     &:focus {
       outline: none;
-      border-color: #f5c518;
-      box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.15);
     }
 
     &.input-error { border-color: #e53e3e; }
@@ -350,7 +350,7 @@ $blue: #3182ce;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  border: 3px solid #f5c518;
+  border: 3px solid var(--accent);
 }
 
 .avatar-actions {
@@ -360,9 +360,9 @@ $blue: #3182ce;
 }
 
 .upload-btn {
-  background: rgba(245,197,24,0.15);
-  border: 1.5px solid rgba(245,197,24,0.3);
-  color: #f5c518;
+  background: rgba(var(--accent-rgb),0.15);
+  border: 1.5px solid rgba(var(--accent-rgb),0.3);
+  color: var(--accent);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -372,7 +372,7 @@ $blue: #3182ce;
   white-space: nowrap;
 
   &:hover {
-    background: #f5c518;
+    background: var(--accent);
     color: #1a1a2e;
   }
 }

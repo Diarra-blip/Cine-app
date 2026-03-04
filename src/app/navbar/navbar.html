@@ -38,11 +38,22 @@
       </div>
     </div>
 
-    <!-- Bouton thème -->
-    <button class="theme-toggle" (click)="themeService.toggleTheme()"
-            [title]="themeService.isDark() ? 'Mode clair' : 'Mode sombre'">
-      {{ themeService.isDark() ? '☀️' : '🌙' }}
-    </button>
+    <!-- Remplace le bouton theme-toggle par : -->
+    <div class="theme-selector">
+      <button class="theme-toggle" (click)="themeService.toggleTheme()"
+              [title]="themeService.currentTheme()">
+        {{ themeService.getThemeEmoji() }}
+      </button>
+      <div class="theme-dropdown">
+        @for (theme of themeService.themes; track theme.name) {
+        <button class="theme-option"
+                [class.active]="themeService.currentTheme() === theme.name"
+                (click)="themeService.setTheme(theme.name)">
+          {{ theme.emoji }} {{ theme.label }}
+        </button>
+        }
+      </div>
+    </div>
 
     <!-- Hamburger -->
     <div class="nav-hamburger-wrapper" (click)="toggleMenu()">

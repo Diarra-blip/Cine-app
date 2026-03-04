@@ -8,7 +8,7 @@
   color: var(--text-primary) !important;
 
   .card-header {
-    background: linear-gradient(135deg, #f5c518, #ff9900) !important;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover)) !important;
     color: #1a1a2e !important;
     border-bottom: none !important;
   }
@@ -36,8 +36,8 @@
   &:focus {
     background: var(--input-bg) !important;
     color: var(--text-primary) !important;
-    border-color: #f5c518 !important;
-    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.15) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15) !important;
   }
 
   &.is-invalid {
@@ -58,7 +58,7 @@ textarea.form-control {
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, #f5c518, #ff9900) !important;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover)) !important;
   border: none !important;
   color: #1a1a2e !important;
   font-weight: 700 !important;
@@ -66,7 +66,7 @@ textarea.form-control {
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(245, 197, 24, 0.4) !important;
+    box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.4) !important;
   }
 
   &:disabled {
