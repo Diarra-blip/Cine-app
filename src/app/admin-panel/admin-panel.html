@@ -1,0 +1,54 @@
+<div class="admin-container">
+  <h1 class="admin-title">Panel Administrateur</h1>
+  <p class="admin-subtitle">Vue d'ensemble de votre cinémathèque</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="bi bi-film"></i></div>
+      <div class="stat-info">
+        <span class="stat-number">{{ nbFilms() }}</span>
+        <span class="stat-label">Films</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="bi bi-star-fill"></i></div>
+      <div class="stat-info">
+        <span class="stat-number">{{ avgRate() }}/5</span>
+        <span class="stat-label">Note moyenne</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
+      <div class="stat-info">
+        <span class="stat-number highlight">{{ bestMovie() }}</span>
+        <span class="stat-label">Meilleur film</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
+      <div class="stat-info">
+        <span class="stat-number highlight">{{ latestMovie() }}</span>
+        <span class="stat-label">Film le plus récent</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Actions rapides</h2>
+  <div class="actions-grid">
+    <a routerLink="/movies" class="action-card">
+      <i class="bi bi-list-ul"></i>
+      <span>Gérer les films</span>
+    </a>
+    <a routerLink="/add-movie" class="action-card">
+      <i class="bi bi-plus-circle"></i>
+      <span>Ajouter un film</span>
+    </a>
+    <a routerLink="/charts" class="action-card">
+      <i class="bi bi-bar-chart-line"></i>
+      <span>Voir les statistiques</span>
+    </a>
+  </div>
+</div>
