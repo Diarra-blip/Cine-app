@@ -7,11 +7,12 @@
 
   <!-- Header film -->
   <div class="movie-header">
-    <div class="movie-poster" *ngIf="movie.image">
-      <img [src]="movie.image" [alt]="movie.title" />
-    </div>
-    <div class="movie-poster placeholder-poster" *ngIf="!movie.image">
-      🎬
+    <div class="movie-poster">
+      <img
+        [src]="getImageUrl(movie)"
+        [alt]="movie.title"
+        (error)="$any($event.target).src='https://placehold.co/200x300/1a1a2e/f5c518?text=' + movie.title"
+      />
     </div>
 
     <div class="movie-info">
@@ -39,7 +40,7 @@
         <button class="btn-action primary" (click)="showReviewForm = !showReviewForm">
           {{ showReviewForm ? 'Annuler' : '✍️ Laisser un avis' }}
         </button>
-        <a class="btn-action secondary" routerLink="/movies">← Retour</a>
+        <a class="btn-action secondary" routerLink="/">← Retour</a>
       </div>
     </div>
   </div>
@@ -94,5 +95,6 @@
 
 <!-- Loading -->
 <div class="loading" *ngIf="!movie">
+  <div class="spinner"></div>
   <p>Chargement...</p>
 </div>

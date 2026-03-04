@@ -1,17 +1,20 @@
-<div class="card shadow-lg m-4 cinematic-card" style="width: 18rem; min-height: 32rem; background-color: #141414; color: white; border: none; border-radius: 15px; overflow: hidden;">
-  <img 
-    [src]="'http://localhost:8080/movies/' + movie.id + '/image'" 
-    class="card-img-top" 
-    [alt]="movie.title"
-    style="height: 400px; object-fit: cover; filter: brightness(0.8);"
-    (error)="$event.target.src='https://placehold.co/300x450/222/fff?text=' + movie.title"
-  >
-  <div class="card-body" style="background: linear-gradient(to bottom, #141414, #0a0a0a);">
-    <h5 class="card-title" style="font-weight: bold; text-transform: uppercase; color: #e50914;">{{movie.title}}</h5>
-    <p class="card-text" style="color: #b3b3b3; font-size: 0.9rem; height: 4.5rem; overflow: hidden;">{{movie.synopsis}}</p>
-    <div class="d-flex justify-content-between align-items-center">
-        <span class="badge bg-danger">Note: {{movie.rate}}/5</span>
-        <small class="text-muted">{{ movie.releaseDate | date:'yyyy' }}</small>
+<div class="movie-card">
+  <div class="movie-poster">
+    <img
+      [src]="'http://localhost:8080/movies/' + movie.id + '/image'"
+      [alt]="movie.title"
+      (error)="$any($event.target).src='https://placehold.co/200x300/1a1a2e/f5c518?text=' + movie.title"
+    />
+    <div class="movie-hover">
+      <span class="play-btn">▶</span>
+    </div>
+  </div>
+  <div class="movie-info">
+    <h5>{{ movie.title }}</h5>
+    <p>{{ movie.director }}</p>
+    <div class="movie-meta">
+      <span class="rate">⭐ {{ movie.rate }}/5</span>
+      <span class="year">{{ movie.releaseDate | date:'yyyy' }}</span>
     </div>
   </div>
 </div>

@@ -45,6 +45,10 @@ export class MovieDetail implements OnInit {
     this.checkFavorite(id);
   }
 
+  getImageUrl(movie: Movie): string {
+    return `http://localhost:8080/movies/${movie.id}/image`;
+  }
+
   // ===== Reviews =====
   loadReviews(movieId: number) {
     const stored = localStorage.getItem(`reviews_${movieId}`);
@@ -54,14 +58,11 @@ export class MovieDetail implements OnInit {
   submitReview() {
     const user = this.auth.currentUser();
     if (!user) return;
-
     this.newReview.userEmail = user.email;
     this.newReview.userName = `${user.firstName} ${user.lastName}`;
     this.newReview.date = new Date().toLocaleDateString('fr-FR');
-
     this.reviews.unshift({ ...this.newReview });
     localStorage.setItem(`reviews_${this.newReview.movieId}`, JSON.stringify(this.reviews));
-
     this.newReview.comment = '';
     this.newReview.rate = 5;
     this.showReviewForm = false;
@@ -90,10 +91,8 @@ export class MovieDetail implements OnInit {
   toggleFavorite() {
     const user = this.auth.currentUser();
     if (!user || !this.movie) return;
-
     const key = `favs_${user.email}`;
     let favs: number[] = JSON.parse(localStorage.getItem(key) || '[]');
-
     if (this.isFavorite) {
       favs = favs.filter(id => id !== this.movie!.id);
       this.showToast('Retiré des favoris', 'info');
@@ -101,7 +100,6 @@ export class MovieDetail implements OnInit {
       favs.push(this.movie.id!);
       this.showToast('Ajouté aux favoris ❤️', 'success');
     }
-
     localStorage.setItem(key, JSON.stringify(favs));
     this.isFavorite = !this.isFavorite;
   }
