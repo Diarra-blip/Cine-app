@@ -1,7 +1,7 @@
 <div class="movie-card">
   <div class="movie-poster">
     <img
-      [src]="'http://localhost:8080/movies/' + movie.id + '/image'"
+      [src]="movie.image && movie.image.startsWith('http') ? movie.image : 'http://localhost:8080/movies/' + movie.id + '/image'"
       [alt]="movie.title"
       (error)="$any($event.target).src='https://placehold.co/200x300/1a1a2e/f5c518?text=' + movie.title"
     />

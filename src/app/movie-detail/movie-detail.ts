@@ -46,6 +46,9 @@ export class MovieDetail implements OnInit {
   }
 
   getImageUrl(movie: Movie): string {
+    if (movie.image && movie.image.startsWith('http')) {
+      return movie.image;
+    }
     return `http://localhost:8080/movies/${movie.id}/image`;
   }
 

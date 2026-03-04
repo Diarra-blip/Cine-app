@@ -3,8 +3,11 @@
   padding: 0 20px;
   height: 60px;
   display: flex;
-  align-items: center; /* ← plus de flex-direction: column */
-  position: relative;
+  align-items: center;
+  position: fixed; // ← fixe la navbar
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
   width: 100%;
   box-sizing: border-box;

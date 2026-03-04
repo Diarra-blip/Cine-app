@@ -19,10 +19,8 @@
     </div>
   </div>
 
-  @if (movies().length > 0) {
-
   <!-- Carousel -->
-  <div class="section">
+  <div class="section" *ngIf="movies().length > 0">
     <h2 class="section-title">⭐ À l'affiche</h2>
     <div class="carousel-wrapper">
       <div class="carousel-track"
@@ -73,14 +71,14 @@
   </div>
 
   <!-- Les mieux notés -->
-  <div class="section">
+  <div class="section" *ngIf="movies().length > 0">
     <h2 class="section-title">🏆 Les mieux notés</h2>
     <div class="top-list">
       @for (movie of topRated(); track movie.id; let i = $index) {
       <div class="top-item" (click)="goToMovie(movie)">
-            <span class="top-rank gold" [class.silver]="i === 1" [class.bronze]="i === 2">
-              {{ i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#' + (i + 1) }}
-            </span>
+          <span class="top-rank">
+            {{ i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#' + (i + 1) }}
+          </span>
         <img
           [src]="getImageUrl(movie)"
           [alt]="movie.title"
@@ -97,28 +95,41 @@
   </div>
 
   <!-- Tous les films -->
-  <div class="section">
+  <div class="section" *ngIf="movies().length > 0">
     <h2 class="section-title">
       🎥 Tous les films
       <span class="count-badge">{{ filteredMovies().length }}</span>
     </h2>
+
     <div class="no-results" *ngIf="filteredMovies().length === 0">
       <p>😕 Aucun film trouvé pour "{{ searchQuery }}"</p>
       <button (click)="searchQuery = ''; onSearch()">Voir tous les films</button>
     </div>
+
     <div class="movies-grid">
-      @for (movie of filteredMovies(); track movie.id) {
+      @for (movie of displayedMovies(); track movie.id) {
       <app-movie-card [movie]="movie" (click)="goToMovie(movie)"></app-movie-card>
       }
     </div>
-  </div>
-  }
 
-  @if (movies().length === 0) {
-  <div class="loading">
+    <div class="load-more-wrapper">
+      <button class="load-more-btn" *ngIf="hasMore()" (click)="loadMore()">
+        ➕ Charger plus
+        <span class="load-more-count">
+      {{ filteredMovies().length - displayedMovies().length }} restants
+    </span>
+      </button>
+
+      <button class="load-less-btn" *ngIf="displayedMovies().length > pageSize" (click)="showLess()">
+        🔼 Voir moins
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="movies().length === 0">
     <div class="spinner"></div>
     <p>Chargement des films...</p>
   </div>
-  }
 
 </div>
