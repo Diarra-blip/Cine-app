@@ -12,13 +12,47 @@
 
     <!-- Header -->
     <div class="profile-header">
-      <div class="avatar">
-        {{ user.firstName.charAt(0).toUpperCase() }}{{ user.lastName.charAt(0).toUpperCase() }}
+
+      <!-- Avatar mode visualisation -->
+      <div class="avatar-wrapper" *ngIf="!isEditing">
+        <img *ngIf="user.avatar" [src]="user.avatar" class="avatar-img" [alt]="user.firstName" />
+        <div class="avatar" *ngIf="!user.avatar"
+             [style.background]="'linear-gradient(135deg, ' + getRoleColor() + ', #1a1a2e)'">
+          {{ user.firstName.charAt(0).toUpperCase() }}{{ user.lastName.charAt(0).toUpperCase() }}
+        </div>
       </div>
+
+      <!-- Avatar mode édition -->
+      <div class="avatar-wrapper" *ngIf="isEditing">
+        <img *ngIf="avatarPreview || editForm.avatar"
+             [src]="avatarPreview || editForm.avatar"
+             class="avatar-img" />
+        <div class="avatar" *ngIf="!avatarPreview && !editForm.avatar"
+             [style.background]="'linear-gradient(135deg, ' + getRoleColor() + ', #1a1a2e)'">
+          {{ user.firstName.charAt(0).toUpperCase() }}{{ user.lastName.charAt(0).toUpperCase() }}
+        </div>
+        <div class="avatar-actions">
+          <label class="upload-btn">
+            📷 Changer
+            <input type="file" accept="image/*" (change)="onAvatarChange($event)" hidden />
+          </label>
+          <button class="remove-avatar-btn" *ngIf="avatarPreview || editForm.avatar"
+                  (click)="removeAvatar()">
+            🗑️
+          </button>
+        </div>
+      </div>
+
       <div class="profile-title">
         <h1>{{ user.firstName }} {{ user.lastName }}</h1>
         <p class="profile-email">{{ user.email }}</p>
+        <span class="role-badge"
+              [style.background]="'rgba(' + (isAdmin() ? '229,62,62' : '245,197,24') + ',0.15)'"
+              [style.color]="getRoleColor()">
+          {{ getRoleBadge() }}
+        </span>
       </div>
+
       <div class="header-actions">
         <button class="btn douceur-primary" (click)="startEditing()" *ngIf="!isEditing">
           ✏️ Modifier
@@ -29,9 +63,53 @@
       </div>
     </div>
 
+    <!-- Stats cards -->
+    <div class="stats-row" *ngIf="!isEditing">
+      <ng-container *ngIf="isAdmin()">
+        <div class="stat-card red">
+          <span class="stat-icon">🎬</span>
+          <span class="stat-value">{{ nbMovies }}</span>
+          <span class="stat-label">Films gérés</span>
+          <a routerLink="/movies" class="stat-link">Gérer →</a>
+        </div>
+        <div class="stat-card red">
+          <span class="stat-icon">📊</span>
+          <span class="stat-value">{{ nbMovies }}</span>
+          <span class="stat-label">Statistiques</span>
+          <a routerLink="/charts" class="stat-link">Voir →</a>
+        </div>
+        <div class="stat-card red">
+          <span class="stat-icon">⚙️</span>
+          <span class="stat-value">Panel</span>
+          <span class="stat-label">Administration</span>
+          <a routerLink="/admin" class="stat-link">Accéder →</a>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!isAdmin()">
+        <div class="stat-card yellow">
+          <span class="stat-icon">❤️</span>
+          <span class="stat-value">{{ nbFavorites }}</span>
+          <span class="stat-label">Favoris</span>
+          <a routerLink="/favorites" class="stat-link">Voir →</a>
+        </div>
+        <div class="stat-card yellow">
+          <span class="stat-icon">💬</span>
+          <span class="stat-value">{{ nbReviews }}</span>
+          <span class="stat-label">Avis laissés</span>
+        </div>
+        <div class="stat-card yellow">
+          <span class="stat-icon">🎬</span>
+          <span class="stat-value">{{ nbFavorites }}</span>
+          <span class="stat-label">Films aimés</span>
+          <a routerLink="/" class="stat-link">Explorer →</a>
+        </div>
+      </ng-container>
+    </div>
+
     <!-- Infos -->
     <div class="profile-card" *ngIf="!isEditing">
-      <h2 class="card-title">Mes informations</h2>
+      <h2 class="card-title">👤 Mes informations</h2>
       <div class="info-grid">
         <div class="info-item">
           <span class="info-label">Prénom</span>
@@ -45,6 +123,10 @@
           <span class="info-label">Email</span>
           <span class="info-value">{{ user.email }}</span>
         </div>
+        <div class="info-item">
+          <span class="info-label">Rôle</span>
+          <span class="info-value" [style.color]="getRoleColor()">{{ getRoleBadge() }}</span>
+        </div>
         <div class="info-item" *ngIf="user.birthDate">
           <span class="info-label">Date de naissance</span>
           <span class="info-value">{{ user.birthDate }}</span>
@@ -56,48 +138,75 @@
       </div>
     </div>
 
-    <!-- Formulaire d'édition -->
+    <!-- Liens rapides admin -->
+    <div class="quick-links" *ngIf="isAdmin() && !isEditing">
+      <h2 class="card-title">⚡ Actions rapides</h2>
+      <div class="links-grid">
+        <a routerLink="/admin" class="quick-link"><span>⚙️</span> Panel Admin</a>
+        <a routerLink="/add-movie" class="quick-link"><span>➕</span> Ajouter un film</a>
+        <a routerLink="/movies" class="quick-link"><span>🎬</span> Gérer les films</a>
+        <a routerLink="/charts" class="quick-link"><span>📊</span> Statistiques</a>
+      </div>
+    </div>
+
+    <!-- Liens rapides client -->
+    <div class="quick-links" *ngIf="!isAdmin() && !isEditing">
+      <h2 class="card-title">⚡ Accès rapide</h2>
+      <div class="links-grid">
+        <a routerLink="/favorites" class="quick-link"><span>❤️</span> Mes favoris</a>
+        <a routerLink="/" class="quick-link"><span>🎬</span> Catalogue</a>
+      </div>
+    </div>
+
+    <!-- Formulaire édition -->
     <div class="profile-card" *ngIf="isEditing">
-      <h2 class="card-title">Modifier mes informations</h2>
+      <h2 class="card-title">✏️ Modifier mes informations</h2>
       <div class="form-grid">
         <div class="form-group">
-          <label for="firstName">Prénom</label>
-          <input id="firstName" type="text" [(ngModel)]="editForm.firstName" placeholder="Prénom" />
+          <label>Prénom</label>
+          <input type="text" [(ngModel)]="editForm.firstName" placeholder="Prénom" />
         </div>
         <div class="form-group">
-          <label for="lastName">Nom</label>
-          <input id="lastName" type="text" [(ngModel)]="editForm.lastName" placeholder="Nom" />
+          <label>Nom</label>
+          <input type="text" [(ngModel)]="editForm.lastName" placeholder="Nom" />
         </div>
         <div class="form-group full-width">
-          <label for="email">Email</label>
-          <input id="email" type="email" [(ngModel)]="editForm.email" placeholder="Email" />
+          <label>Email</label>
+          <input type="email" [(ngModel)]="editForm.email" placeholder="Email" />
         </div>
         <div class="form-group">
-          <label for="password">Nouveau mot de passe</label>
-          <input id="password" type="password" [(ngModel)]="editForm.password"
-                 placeholder="Laisser vide = inchangé" />
+          <label>Nouveau mot de passe</label>
+          <div class="password-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'"
+                   [(ngModel)]="editForm.password"
+                   placeholder="Laisser vide = inchangé" />
+            <button type="button" class="eye-btn" (click)="showPassword = !showPassword">
+              {{ showPassword ? '🙈' : '👁️' }}
+            </button>
+          </div>
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Confirmer le mot de passe</label>
-          <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword"
-                 placeholder="Confirmer le mot de passe"
-                 [class.input-error]="passwordError" />
+          <label>Confirmer le mot de passe</label>
+          <div class="password-wrapper">
+            <input [type]="showConfirm ? 'text' : 'password'"
+                   [(ngModel)]="confirmPassword"
+                   placeholder="Confirmer"
+                   [class.input-error]="passwordError" />
+            <button type="button" class="eye-btn" (click)="showConfirm = !showConfirm">
+              {{ showConfirm ? '🙈' : '👁️' }}
+            </button>
+          </div>
           <span class="error-msg" *ngIf="passwordError">{{ passwordError }}</span>
         </div>
       </div>
       <div class="profile-actions">
-        <button class="btn douceur-primary" (click)="saveChanges()">
-          💾 Sauvegarder
-        </button>
-        <button class="btn douceur-outline" (click)="cancelEditing()">
-          Annuler
-        </button>
+        <button class="btn douceur-primary" (click)="saveChanges()">💾 Sauvegarder</button>
+        <button class="btn douceur-outline" (click)="cancelEditing()">Annuler</button>
       </div>
     </div>
 
   </div>
 
-  <!-- Si pas connecté -->
   <div class="not-logged" *ngIf="!user">
     <p>Vous n'êtes pas connecté.</p>
     <a routerLink="/login" class="btn douceur-primary">Se connecter</a>

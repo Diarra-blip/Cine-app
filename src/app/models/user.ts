@@ -11,4 +11,5 @@ export interface User {
   favorites?: number[];
   reviews?: Review[];
   role?: 'admin' | 'client';
+  avatar?: string; // ← photo de profil en base64
 }

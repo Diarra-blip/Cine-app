@@ -11,6 +11,9 @@ import { Charts } from './charts/charts';
 import { MovieDetail } from './movie-detail/movie-detail';
 import { adminGuard } from './auth/admin.guard';
 import { AdminPanel } from './admin-panel/admin-panel';
+import { Favorites } from './favorites/favorites';
+
+
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -23,4 +26,5 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: 'movie/:id', component: MovieDetail, canActivate: [authGuard] },
+  { path: 'favorites', component: Favorites, canActivate: [authGuard] },
 ];

@@ -1,0 +1,54 @@
+<div class="favorites-page">
+
+  <!-- Header -->
+  <div class="favorites-header">
+    <div>
+      <h1>❤️ Mes <span class="highlight">Favoris</span></h1>
+      <p>{{ favorites().length }} film(s) dans votre liste</p>
+    </div>
+    <a routerLink="/" class="btn-back">← Retour au catalogue</a>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading()">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+
+  <!-- Liste vide -->
+  <div class="empty-state" *ngIf="!loading() && favorites().length === 0">
+    <span class="empty-icon">🎬</span>
+    <h2>Aucun favori pour le moment</h2>
+    <p>Explorez le catalogue et ajoutez des films à vos favoris !</p>
+    <a routerLink="/" class="btn-primary">Découvrir les films</a>
+  </div>
+
+  <!-- Grille des favoris -->
+  <div class="favorites-grid" *ngIf="!loading() && favorites().length > 0">
+    <div class="favorite-card" *ngFor="let movie of favorites()">
+      <div class="card-poster" (click)="goToMovie(movie)">
+        <img
+          [src]="getImageUrl(movie)"
+          [alt]="movie.title"
+          (error)="$any($event.target).src='https://placehold.co/200x300/1a1a2e/f5c518?text=' + movie.title"
+        />
+        <div class="card-overlay">
+          <span class="play-btn">▶</span>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <h3 (click)="goToMovie(movie)">{{ movie.title }}</h3>
+        <p class="director">🎬 {{ movie.director }}</p>
+        <p class="year">📅 {{ movie.releaseDate | date:'yyyy' }}</p>
+        <div class="card-footer">
+          <span class="rate">⭐ {{ movie.rate }}/5</span>
+          <button class="remove-btn" (click)="removeFavorite(movie)">
+            🗑️ Retirer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
