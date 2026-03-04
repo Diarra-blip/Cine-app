@@ -10,7 +10,7 @@
           <form #movieForm="ngForm">
 
             <div class="mb-3">
-              <label class="form-label fw-bold">Titre du film</label>
+              <label class="form-label fw-bold">Titre du film (Original)</label>
               <div class="input-group">
                 <span class="input-group-text bg-light text-muted">Aa</span>
                 <input type="text" name="title" [(ngModel)]="movie.title" required minlength="2" #title="ngModel"
@@ -19,7 +19,17 @@
                 <div class="invalid-feedback">
                   Le titre est obligatoire (minimum 2 caractères).
                 </div>
+                <input type="text" name="title" [(ngModel)]="movie.title" 
+                  required minlength="2" #title="ngModel"
+                  (blur)="searchMovie()" (change)="searchMovie()"
+                  class="form-control" [class.is-invalid]="title.invalid && title.touched" 
+                  placeholder="Ex: Interstellar" />
               </div>
+              <small class="text-muted">La recherche s'active en quittant ce champ.</small>
+            </div>
+
+            <div class="text-center mb-3" *ngIf="movie.image">
+              <img [src]="movie.image" class="img-thumbnail shadow-sm" style="max-height: 200px;">
             </div>
 
             <div class="row">
@@ -33,6 +43,7 @@
                   <div class="invalid-feedback" *ngIf="director.errors?.['required']">Le nom est requis.</div>
                   <div class="invalid-feedback" *ngIf="director.errors?.['minlength']">Précisez le nom complet (min. 3 car.).</div>
                 </div>
+                <input type="text" name="director" [(ngModel)]="movie.director" required class="form-control" />
               </div>
 
               <div class="col-md-6 mb-3">
@@ -59,6 +70,8 @@
                     La date est obligatoire.
                   </div>
                 </div>
+                <input type="date" name="releaseDate" [(ngModel)]="movie.releaseDate" 
+                  required [max]="maxLimitDate" [min]="minDate" class="form-control" />
               </div>
             </div>
 
@@ -95,6 +108,8 @@
               <div class="form-text text-end text-success" *ngIf="synopsis.valid && !synopsis.errors">
                 Synopsis validé !
               </div>
+              <textarea name="synopsis" [(ngModel)]="movie.synopsis" required minlength="30" 
+                class="form-control" rows="4" placeholder="Minimum 30 caractères..."></textarea>
             </div>
 
             <div class="d-grid gap-2">

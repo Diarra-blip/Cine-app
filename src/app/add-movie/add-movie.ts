@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http'; 
 import { Movie } from '../models/movie';
 import { MoviesApiService } from '../services/movies-api';
 import { ToasterService } from '../services/toaster';
@@ -17,9 +18,8 @@ export class AddMovie implements OnInit {
   private readonly moviesApi = inject(MoviesApiService);
   private readonly router = inject(Router);
   private readonly toaster = inject(ToasterService);
+  private readonly http = inject(HttpClient); 
 
-  // Initialisation des limites de dates
-  today: string = new Date().toISOString().split('T')[0];
   minDate: string = '1895-12-28';
   maxLimitDate: string = '';
 
@@ -35,54 +35,63 @@ export class AddMovie implements OnInit {
   };
 
   ngOnInit(): void {
-    // Calcul de la limite à +5 ans pour les films à venir
     const future = new Date();
     future.setFullYear(future.getFullYear() + 5);
     this.maxLimitDate = future.toISOString().split('T')[0];
   }
 
-  addMovie(): void {
-    // Validation de la date
-    const selectedDate = new Date(this.movie.releaseDate as string);
-    const limitDate = new Date(this.maxLimitDate);
-    const originDate = new Date(this.minDate);
+  searchMovie(): void {
+    const apiKey = '59c88170'; // Ta clé activée ✨
+    const title = this.movie.title.trim();
 
-    if (!this.movie.releaseDate || isNaN(selectedDate.getTime())) {
-      this.toaster.show('⚠️ Veuillez choisir une date valide.');
-      return;
-    }
+    if (title.length > 2) {
+      const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`;
 
-    if (selectedDate > limitDate) {
-      this.toaster.show('⚠️ La date est trop lointaine (max 5 ans).');
-      return;
-    }
+      this.http.get(url).subscribe({
+        next: (data: any) => {
+          if (data.Response === 'True') {
+            // Mise à jour de l'objet avec les données réelles
+            this.movie = {
+              ...this.movie,
+              image: data.Poster !== 'N/A' ? data.Poster : '',
+              director: data.Director !== 'N/A' ? data.Director : '',
+              synopsis: data.Plot !== 'N/A' ? data.Plot : '',
+            };
 
-    if (selectedDate < originDate) {
-      this.toaster.show('⚠️ Le cinéma n\'existait pas encore en ' + selectedDate.getFullYear());
-      return;
-    }
-
-    // Vérification des champs obligatoires et enregistrement
-    if (this.movie.title.trim() && this.movie.director.trim()) {
-      const movieToSave: Movie = {
-        ...this.movie,
-        title: this.movie.title.trim(),
-        director: this.movie.director.trim(),
-        synopsis: this.movie.synopsis.trim()
-      };
-
-      this.moviesApi.addMovie(movieToSave).subscribe({
-        next: () => {
-          this.toaster.show('🎬 Film enregistré avec succès !');
-          this.router.navigate(['/']);
+            // Conversion de la date OMDb (ex: "18 Dec 2009") pour l'input date HTML
+            if (data.Released && data.Released !== 'N/A') {
+              const dateParsed = new Date(data.Released);
+              if (!isNaN(dateParsed.getTime())) {
+                this.movie.releaseDate = dateParsed.toISOString().split('T')[0];
+              }
+            }
+            this.toaster.show('🎬 Film trouvé ! Les champs ont été remplis.');
+          } else {
+            this.toaster.show('⚠️ Film non trouvé (essayez le titre en anglais).');
+          }
         },
         error: (err) => {
-          this.toaster.show('❌ Erreur technique lors de l\'ajout');
+          console.error('Erreur OMDb :', err);
+          this.toaster.show('❌ Problème de connexion à l\'API.');
+        }
+      });
+    }
+  }
+
+  addMovie(): void {
+    if (this.movie.title.trim() && this.movie.director.trim() && this.movie.synopsis.trim().length >= 30) {
+      this.moviesApi.addMovie(this.movie).subscribe({
+        next: () => {
+          this.toaster.show('✅ Film enregistré avec succès !');
+          this.router.navigate(['/']); 
+        },
+        error: (err) => {
+          this.toaster.show('❌ Erreur lors de l\'enregistrement sur le serveur.');
           console.error(err);
         }
       });
     } else {
-      this.toaster.show('⚠️ Veuillez remplir tous les champs obligatoires.');
+      this.toaster.show('⚠️ Veuillez remplir tous les champs (synopsis min. 30 car.).');
     }
   }
 }
