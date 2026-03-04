@@ -1,15 +1,52 @@
-<div class="container mt-4">
-  <h2>Statistiques</h2>
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <div class="card p-3 shadow">
-        <canvas #rateChart></canvas>
-      </div>
+<div class="charts-page">
+  <div class="charts-header">
+    <h1>📊 Statistiques</h1>
+    <p>Vue d'ensemble du catalogue de films</p>
+  </div>
+
+  <!-- Cartes stats rapides -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-icon">🎬</span>
+      <span class="stat-value">{{ totalMovies }}</span>
+      <span class="stat-label">Films au total</span>
     </div>
-    <div class="col-md-6">
-      <div class="card p-3 shadow">
-        <canvas #yearChart></canvas>
-      </div>
+    <div class="stat-card">
+      <span class="stat-icon">⭐</span>
+      <span class="stat-value">{{ avgRate }}/5</span>
+      <span class="stat-label">Note moyenne</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">🏆</span>
+      <span class="stat-value best">{{ bestMovie }}</span>
+      <span class="stat-label">Meilleur film</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">🎥</span>
+      <span class="stat-value">{{ totalDirectors }}</span>
+      <span class="stat-label">Réalisateurs</span>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <canvas #rateChart></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas #yearChart></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas #directorChart></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas #rateDistChart></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas #topChart></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas #timelineChart></canvas>
     </div>
   </div>
 </div>
