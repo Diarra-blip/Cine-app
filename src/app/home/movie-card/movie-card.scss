@@ -39,7 +39,7 @@
 .play-btn {
   width: 56px;
   height: 56px;
-  background: rgba(245,197,24,0.9);
+  background: rgba(var(--accent-rgb),0.9);
   color: #1a1a2e;
   border-radius: 50%;
   display: flex;
@@ -77,8 +77,8 @@
 }
 
 .rate {
-  background: rgba(245,197,24,0.15);
-  color: #f5c518;
+  background: rgba(var(--accent-rgb),0.15);
+  color: var(--accent);
   padding: 2px 8px;
   border-radius: 10px;
   font-size: 11px;

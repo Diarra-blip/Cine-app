@@ -20,7 +20,7 @@
     color: var(--text-primary);
     margin: 0 0 8px 0;
 
-    .highlight { color: #f5c518; }
+    .highlight { color: var(--accent); }
   }
 
   p {
@@ -31,7 +31,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #f5c518, #ff9900);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: #1a1a2e;
   padding: 12px 24px;
   border-radius: 25px;
@@ -39,11 +39,11 @@
   font-size: 14px;
   text-decoration: none;
   transition: all 0.2s;
-  box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245,197,24,0.45);
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb),0.45);
   }
 }
 
@@ -71,7 +71,7 @@
   }
 
   &.yellow {
-    background: #f5c518;
+    background: var(--accent);
     color: #1a1a2e;
 
     .stat-label, strong { color: #1a1a2e; }
@@ -89,7 +89,7 @@
 
   &.dark {
     background: #1a1a2e;
-    border-color: rgba(245,197,24,0.2);
+    border-color: rgba(var(--accent-rgb),0.2);
 
     .stat-label { color: #eaeaea; }
   }
@@ -116,8 +116,8 @@
   font-weight: 900;
   line-height: 1;
 
-  &.yellow-text { color: #f5c518; }
-  &.small { font-size: 18px; font-weight: 700; color: #f5c518; }
+  &.yellow-text { color: var(--accent); }
+  &.small { font-size: 18px; font-weight: 700; color: var(--accent); }
   &.emoji-big { font-size: 48px; }
 }
 
@@ -126,8 +126,8 @@
   align-items: center;
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1.5px solid rgba(245,197,24,0.3);
-  color: #f5c518;
+  border: 1.5px solid rgba(var(--accent-rgb),0.3);
+  color: var(--accent);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -135,8 +135,8 @@
   width: fit-content;
 
   &:hover {
-    background: rgba(245,197,24,0.1);
-    border-color: #f5c518;
+    background: rgba(var(--accent-rgb),0.1);
+    border-color: var(--accent);
   }
 
   &.disabled {
@@ -174,12 +174,12 @@
 
   &:hover {
     transform: translateX(6px);
-    border-color: rgba(245,197,24,0.4);
+    border-color: rgba(var(--accent-rgb),0.4);
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   }
 
   &.primary {
-    background: linear-gradient(135deg, #f5c518, #ff9900);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
     border-color: transparent;
 
     .action-label { color: #1a1a2e; }
@@ -196,7 +196,7 @@
   }
 
   .action-arrow {
-    color: #f5c518;
+    color: var(--accent);
     font-size: 18px;
     font-weight: 700;
   }

@@ -21,7 +21,7 @@
 .edit-header {
   padding: 32px 40px 24px;
   border-bottom: 1px solid var(--border-color);
-  background: linear-gradient(135deg, rgba(245,197,24,0.05), transparent);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb),0.05), transparent);
 
   h1 {
     color: var(--text-primary);
@@ -82,8 +82,8 @@
 
     &:focus {
       outline: none;
-      border-color: #f5c518;
-      box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.15);
     }
 
     &::placeholder { color: var(--text-muted); opacity: 0.6; }
@@ -127,7 +127,7 @@
   -webkit-appearance: none;
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right, #f5c518 0%, #f5c518 calc(var(--val, 50%) * 1%), var(--input-bg) calc(var(--val, 50%) * 1%));
+  background: linear-gradient(to right, var(--accent) 0%, var(--accent) calc(var(--val, 50%) * 1%), var(--input-bg) calc(var(--val, 50%) * 1%));
   border: none !important;
   padding: 0 !important;
 
@@ -136,15 +136,15 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #f5c518;
+    background: var(--accent);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(245,197,24,0.4);
+    box-shadow: 0 2px 8px rgba(var(--accent-rgb),0.4);
   }
 }
 
 .rate-value {
-  background: rgba(245,197,24,0.15);
-  color: #f5c518;
+  background: rgba(var(--accent-rgb),0.15);
+  color: var(--accent);
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 14px;
@@ -163,7 +163,7 @@
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, #f5c518, #ff9900);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: #1a1a2e;
   border: none;
   padding: 14px 32px;
@@ -172,11 +172,11 @@
   font-size: 15px;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245,197,24,0.45);
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb),0.45);
   }
 }
 

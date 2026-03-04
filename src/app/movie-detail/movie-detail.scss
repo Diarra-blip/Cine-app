@@ -104,8 +104,8 @@
 }
 
 .badge-yellow {
-  background: rgba(245, 197, 24, 0.15);
-  color: #f5c518;
+  background: rgba(var(--accent-rgb), 0.15);
+  color: var(--accent);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 13px;
@@ -145,7 +145,7 @@
   .avg-rate {
     font-size: 24px;
     font-weight: 800;
-    color: #f5c518;
+    color: var(--accent);
   }
 
   .review-count {
@@ -174,9 +174,9 @@
   transition: all 0.2s;
 
   &.primary {
-    background: linear-gradient(135deg, #f5c518, #ff9900);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
     color: #1a1a2e;
-    &:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(245,197,24,0.4); }
+    &:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.4); }
     &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   }
 
@@ -217,8 +217,8 @@
 
     &:focus {
       outline: none;
-      border-color: #f5c518;
-      box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.15);
     }
 
     &::placeholder { color: var(--text-muted); }
@@ -236,7 +236,7 @@
     color: var(--text-muted);
     transition: all 0.15s;
 
-    &:hover, &.selected { color: #f5c518; transform: scale(1.1); }
+    &:hover, &.selected { color: var(--accent); transform: scale(1.1); }
   }
 }
 
@@ -278,7 +278,7 @@
 .reviewer-avatar {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #f5c518, #ff9900);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: #1a1a2e;
   border-radius: 50%;
   display: flex;
@@ -302,7 +302,7 @@
   font-size: 18px;
 
   span { color: var(--text-muted); }
-  span.filled { color: #f5c518; }
+  span.filled { color: var(--accent); }
 }
 
 .delete-btn {

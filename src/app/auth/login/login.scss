@@ -19,7 +19,7 @@
       display: block;
       width: 48px;
       height: 4px;
-      background: linear-gradient(90deg, #f5c518, #ff9900);
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
       border-radius: 2px;
       margin: 12px auto 28px;
     }
@@ -32,7 +32,7 @@
   }
 
   .text-blue {
-    color: #f5c518;
+    color: var(--accent);
     cursor: pointer;
     text-decoration: none;
     font-weight: 600;
@@ -83,8 +83,8 @@ input {
 
   &:focus {
     outline: none;
-    border-color: #f5c518;
-    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.15);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
     background: var(--input-bg);
   }
 
@@ -133,7 +133,7 @@ input {
 button[type="submit"] {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #f5c518, #ff9900);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: #1a1a2e;
   border: none;
   border-radius: 12px;
@@ -143,11 +143,11 @@ button[type="submit"] {
   cursor: pointer;
   letter-spacing: 0.3px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(245, 197, 24, 0.3);
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.3);
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 197, 24, 0.45);
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.45);
   }
 
   &:active:not(:disabled) {
