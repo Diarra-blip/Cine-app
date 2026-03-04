@@ -3,52 +3,59 @@
 
 <router-outlet></router-outlet>
 
-<footer class="bg-dark text-white pt-5 pb-4 mt-5">
-  <div class="container text-center">
-    <div class="mb-3">
-      <a href="https://facebook.com" target="_blank" class="text-white mx-2 fs-5"><i class="bi bi-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank" class="text-white mx-2 fs-5"><i class="bi bi-twitter-x"></i></a>
-      <a href="https://instagram.com" target="_blank" class="text-white mx-2 fs-5"><i class="bi bi-instagram"></i></a>
+<footer class="app-footer">
+  <div class="footer-container">
+
+    <div class="footer-social">
+      <a href="https://facebook.com" target="_blank" class="social-link">
+        <i class="bi bi-facebook"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-link">
+        <i class="bi bi-twitter-x"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-link">
+        <i class="bi bi-instagram"></i>
+      </a>
     </div>
-    
-    <h6 class="text-uppercase fw-bold text-warning mb-3">Trouvez un film avec l'un de nos cinémas partenaires :</h6>
-    
-    <div class="row g-4 justify-content-center">
-      <div class="col-6 col-md-3">
-        <h6 class="text-warning">PARIS</h6>
-        <p class="small">
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-beaugrenelle" target="_blank" class="text-secondary text-decoration-none">Beaugrenelle</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-gaumont-champs" target="_blank" class="text-secondary text-decoration-none">Champs-Élysées</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-la-villette" target="_blank" class="text-secondary text-decoration-none">La Villette</a>
-        </p>
+
+    <h6 class="footer-title">
+      Trouvez un film avec l'un de nos cinémas partenaires :
+    </h6>
+
+    <div class="footer-cities">
+
+      <div class="footer-city">
+        <div class="city-name">PARIS</div>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-beaugrenelle" target="_blank">Beaugrenelle</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-gaumont-champs" target="_blank">Champs-Élysées</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-la-villette" target="_blank">La Villette</a>
       </div>
-      <div class="col-6 col-md-3">
-        <h6 class="text-warning">LYON</h6>
-        <p class="small">
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-vaise" target="_blank" class="text-secondary text-decoration-none">Vaise</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-carre-de-soie" target="_blank" class="text-secondary text-decoration-none">Carré de Soie</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-bellecour" target="_blank" class="text-secondary text-decoration-none">Bellecour</a>
-        </p>
+
+      <div class="footer-city">
+        <div class="city-name">LYON</div>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-vaise" target="_blank">Vaise</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-carre-de-soie" target="_blank">Carré de Soie</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-bellecour" target="_blank">Bellecour</a>
       </div>
-      <div class="col-6 col-md-3">
-        <h6 class="text-warning">MARSEILLE</h6>
-        <p class="small">
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-madeleine" target="_blank" class="text-secondary text-decoration-none">Madeleine</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-plan-de-campagne" target="_blank" class="text-secondary text-decoration-none">Plan de campagne</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-la-joliette" target="_blank" class="text-secondary text-decoration-none">La Joliette</a>
-        </p>
+
+      <div class="footer-city">
+        <div class="city-name">MARSEILLE</div>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-madeleine" target="_blank">Madeleine</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-plan-de-campagne" target="_blank">Plan de campagne</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-la-joliette" target="_blank">La Joliette</a>
       </div>
-      <div class="col-6 col-md-3">
-        <h6 class="text-warning">NICE</h6>
-        <p class="small">
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-lingostiere" target="_blank" class="text-secondary text-decoration-none">Lingostière</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-massena" target="_blank" class="text-secondary text-decoration-none">Masséna</a><br>
-          <a href="https://www.pathe.fr/cinemas/cinema-pathe-gare-du-sud" target="_blank" class="text-secondary text-decoration-none">Gare du Sud</a>
-        </p>
+
+      <div class="footer-city">
+        <div class="city-name">NICE</div>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-lingostiere" target="_blank">Lingostière</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-massena" target="_blank">Masséna</a>
+        <a href="https://www.pathe.fr/cinemas/cinema-pathe-gare-du-sud" target="_blank">Gare du Sud</a>
       </div>
+
     </div>
-    
-    <hr class="bg-secondary my-4">
-    <p class="small text-secondary mb-0">© 2026 Copyright: Takima</p>
+
+    <hr class="footer-divider">
+    <p class="footer-copy">© 2026 Copyright: Vatalina</p>
+
   </div>
 </footer>

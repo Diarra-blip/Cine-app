@@ -2,25 +2,20 @@
   <div class="navbar-main-line">
 
     <!-- Logo -->
-    <a class="douceur-logo" routerLink="/">🎬 {{ title }}</a>
+    <a class="douceur-logo" routerLink="/">
+      <div class="logo-icon">
+        <span class="logo-clap">🎬</span>
+      </div>
+      <span class="logo-text">Vatalina</span>
+    </a>
 
-    <!-- Liens centraux -->
-    <div class="nav-links" *ngIf="auth.isLoggedIn()">
-      <a class="nav-link" routerLink="/">Accueil</a>
-      <ng-container *ngIf="auth.isAdmin()">
-        <a class="nav-link" routerLink="/admin">Panel Admin</a>
-        <a class="nav-link" routerLink="/movies">Gestion films</a>
-        <a class="nav-link" routerLink="/charts">Statistiques</a>
-        <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
-      </ng-container>
-    </div>
 
     <!-- Barre de recherche -->
     <div class="search-wrapper" *ngIf="auth.isLoggedIn()">
       <input
         class="search-input"
         type="text"
-        placeholder="🔍 Rechercher un film..."
+        placeholder="Rechercher un film..."
         [(ngModel)]="searchQuery"
         (input)="onSearch()"
         (focus)="onSearchFocus()"
@@ -38,7 +33,7 @@
       </div>
     </div>
 
-    <!-- Remplace le bouton theme-toggle par : -->
+    <!-- Sélecteur de thème -->
     <div class="theme-selector">
       <button class="theme-toggle" (click)="themeService.toggleTheme()"
               [title]="themeService.currentTheme()">
@@ -63,6 +58,7 @@
         <span></span>
       </button>
     </div>
+
   </div>
 
   <!-- Dropdown menu -->
@@ -111,6 +107,7 @@
       </button>
     </ng-template>
   </div>
+
 </nav>
 
 <div class="nav-overlay" *ngIf="expanded" (click)="closeMenu()"></div>
