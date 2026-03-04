@@ -24,28 +24,40 @@
   gap: 16px;
 }
 
-// Logo
 .douceur-logo {
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--accent) !important;
-  text-decoration: none;
-  letter-spacing: 2px;
-  white-space: nowrap;
-  transition: all 0.2s;
   display: flex;
   align-items: center;
-  gap: 8px;
-
-  &::before {
-    content: '🎬';
-    font-size: 22px;
-  }
+  gap: 10px;
+  text-decoration: none;
+  transition: all 0.2s;
+  flex-shrink: 0;
 
   &:hover {
-    opacity: 0.85;
-    text-shadow: 0 0 20px rgba(var(--accent-rgb),0.5);
+    transform: scale(1.03);
+    opacity: 0.9;
   }
+}
+
+.logo-clap {
+  font-size: 32px;
+  filter: drop-shadow(0 0 8px rgba(179,102,255,0.5));
+  transition: all 0.3s;
+
+  .douceur-logo:hover & {
+    filter: drop-shadow(0 0 14px rgba(179,102,255,0.8));
+    transform: rotate(-10deg) scale(1.1);
+  }
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #b366ff, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: lowercase;
 }
 
 // Liens centraux
@@ -315,9 +327,14 @@
   }
 }
 
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .search-wrapper { max-width: 160px; }
+@media (max-width: 1024px) {
+  .nav-links { display: none; } // ← les liens passent dans le hamburger
+  .search-wrapper { max-width: 200px; }
+}
+
+@media (max-width: 600px) {
+  .search-wrapper { display: none; } // ← la recherche disparait, accessible via hamburger
+  .douceur-logo { font-size: 16px; letter-spacing: 1px; }
 }
 
 .theme-selector {
