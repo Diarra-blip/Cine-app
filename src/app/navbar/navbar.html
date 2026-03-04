@@ -1,12 +1,14 @@
 <nav class="douceur-navbar">
   <div class="navbar-main-line">
+
     <!-- Logo -->
     <a class="douceur-logo" routerLink="/">🎬 {{ title }}</a>
 
-    <!-- Liens centraux visibles quand connecté -->
+    <!-- Liens centraux -->
     <div class="nav-links" *ngIf="auth.isLoggedIn()">
       <a class="nav-link" routerLink="/">Accueil</a>
       <ng-container *ngIf="auth.isAdmin()">
+        <a class="nav-link" routerLink="/admin">Panel Admin</a>
         <a class="nav-link" routerLink="/movies">Gestion films</a>
         <a class="nav-link" routerLink="/charts">Statistiques</a>
         <a class="nav-link" routerLink="/add-movie">+ Ajouter</a>
@@ -24,7 +26,6 @@
         (focus)="onSearchFocus()"
         (blur)="closeSearch()"
       />
-      <!-- Résultats -->
       <div class="search-results" *ngIf="showResults && searchQuery">
         <div class="no-result" *ngIf="searchResults.length === 0">
           Aucun résultat pour "{{ searchQuery }}"
@@ -68,7 +69,11 @@
       <a class="dropdown-item" routerLink="/" (click)="closeMenu()">
         <span class="item-icon">🏠</span> Accueil
       </a>
+
       <ng-container *ngIf="auth.isAdmin()">
+        <a class="dropdown-item" routerLink="/admin" (click)="closeMenu()">
+          <span class="item-icon">⚙️</span> Panel Admin
+        </a>
         <a class="dropdown-item" routerLink="/movies" (click)="closeMenu()">
           <span class="item-icon">🎬</span> Gestion films
         </a>
@@ -78,18 +83,14 @@
         <a class="dropdown-item" routerLink="/charts" (click)="closeMenu()">
           <span class="item-icon">📊</span> Statistiques
         </a>
-        <a class="dropdown-item" routerLink="/admin" (click)="closeMenu()">
-          <span class="item-icon">⚙️</span> Panel Admin
-        </a>
       </ng-container>
+
       <ng-container *ngIf="auth.isClient()">
-        <a class="dropdown-item" routerLink="/catalog" (click)="closeMenu()">
-          <span class="item-icon">🎥</span> Catalogue films
-        </a>
         <a class="dropdown-item" routerLink="/favorites" (click)="closeMenu()">
-          <span class="item-icon">❤</span> Mes favoris
+          <span class="item-icon">❤️</span> Mes favoris
         </a>
       </ng-container>
+
       <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
         <span class="item-icon">👤</span> Mon Espace
       </a>

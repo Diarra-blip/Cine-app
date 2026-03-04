@@ -1,54 +1,96 @@
-<div class="admin-container">
-  <h1 class="admin-title">Panel Administrateur</h1>
-  <p class="admin-subtitle">Vue d'ensemble de votre cinémathèque</p>
+<div class="admin-page">
 
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon"><i class="bi bi-film"></i></div>
-      <div class="stat-info">
-        <span class="stat-number">{{ nbFilms() }}</span>
-        <span class="stat-label">Films</span>
-      </div>
+  <!-- Header -->
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1>🎬 Panel <span class="highlight">Administrateur</span></h1>
+      <p>Vue d'ensemble de votre cinémathèque</p>
     </div>
-
-    <div class="stat-card">
-      <div class="stat-icon"><i class="bi bi-star-fill"></i></div>
-      <div class="stat-info">
-        <span class="stat-number">{{ avgRate() }}/5</span>
-        <span class="stat-label">Note moyenne</span>
-      </div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
-      <div class="stat-info">
-        <span class="stat-number highlight">{{ bestMovie() }}</span>
-        <span class="stat-label">Meilleur film</span>
-      </div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
-      <div class="stat-info">
-        <span class="stat-number highlight">{{ latestMovie() }}</span>
-        <span class="stat-label">Film le plus récent</span>
-      </div>
+    <div class="admin-header-right">
+      <a routerLink="/add-movie" class="btn-primary">➕ Ajouter un film</a>
     </div>
   </div>
 
-  <h2 class="section-title">Actions rapides</h2>
+  <!-- Cards stats -->
+  <div class="stats-grid">
+    <div class="stat-card yellow">
+      <div class="stat-top">
+        <span class="stat-label">Nombre de <strong>films</strong></span>
+        <span class="stat-icon">🎬</span>
+      </div>
+      <span class="stat-value">{{ nbFilms() }}</span>
+      <a routerLink="/movies" class="stat-link">Les films →</a>
+    </div>
+
+    <div class="stat-card yellow">
+      <div class="stat-top">
+        <span class="stat-label">Nombre d'<strong>utilisateurs</strong></span>
+        <span class="stat-icon">👥</span>
+      </div>
+      <span class="stat-value">{{ nbUtilisateurs() }}</span>
+      <span class="stat-link disabled">Les utilisateurs →</span>
+    </div>
+
+    <div class="stat-card white">
+      <div class="stat-top">
+        <span class="stat-label">Nombre d'<strong>avis</strong></span>
+        <span class="stat-icon">💬</span>
+      </div>
+      <span class="stat-value yellow-text">{{ nbAvis() }}</span>
+      <span class="stat-link disabled">Les avis →</span>
+    </div>
+
+    <div class="stat-card white">
+      <div class="stat-top">
+        <span class="stat-label">Satisfaction : <strong>{{ satisfaction() }}%</strong></span>
+        <span class="stat-icon">{{ satisfactionEmoji() }}</span>
+      </div>
+      <span class="stat-value emoji-big">{{ satisfactionEmoji() }}</span>
+      <a routerLink="/charts" class="stat-link">Les statistiques →</a>
+    </div>
+
+    <div class="stat-card dark">
+      <div class="stat-top">
+        <span class="stat-label">Note <strong>moyenne</strong></span>
+        <span class="stat-icon">⭐</span>
+      </div>
+      <span class="stat-value yellow-text">{{ avgRate() }}/5</span>
+      <a routerLink="/charts" class="stat-link">Voir les stats →</a>
+    </div>
+
+    <div class="stat-card dark">
+      <div class="stat-top">
+        <span class="stat-label">Film le plus <strong>récent</strong></span>
+        <span class="stat-icon">🆕</span>
+      </div>
+      <span class="stat-value small">{{ latestMovie() }}</span>
+      <a routerLink="/movies" class="stat-link">Gérer →</a>
+    </div>
+  </div>
+
+  <!-- Actions rapides -->
+  <h2 class="section-title">⚡ Actions rapides</h2>
   <div class="actions-grid">
     <a routerLink="/movies" class="action-card">
-      <i class="bi bi-list-ul"></i>
-      <span>Gérer les films</span>
+      <span class="action-icon">🎬</span>
+      <span class="action-label">Gérer les films</span>
+      <span class="action-arrow">→</span>
     </a>
-    <a routerLink="/add-movie" class="action-card">
-      <i class="bi bi-plus-circle"></i>
-      <span>Ajouter un film</span>
+    <a routerLink="/add-movie" class="action-card primary">
+      <span class="action-icon">➕</span>
+      <span class="action-label">Ajouter un film</span>
+      <span class="action-arrow">→</span>
     </a>
     <a routerLink="/charts" class="action-card">
-      <i class="bi bi-bar-chart-line"></i>
-      <span>Voir les statistiques</span>
+      <span class="action-icon">📊</span>
+      <span class="action-label">Statistiques</span>
+      <span class="action-arrow">→</span>
+    </a>
+    <a routerLink="/" class="action-card">
+      <span class="action-icon">🏠</span>
+      <span class="action-label">Voir le site</span>
+      <span class="action-arrow">→</span>
     </a>
   </div>
+
 </div>

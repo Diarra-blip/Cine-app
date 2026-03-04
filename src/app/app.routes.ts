@@ -20,6 +20,7 @@ export const routes: Routes = [
   { path: 'charts', component: Charts, canActivate: [adminGuard] },
   { path: 'admin', component: AdminPanel, canActivate: [adminGuard] },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: 'movie/:id', component: MovieDetail, canActivate: [authGuard] },
 ];
