@@ -1,7 +1,7 @@
-﻿@import url(bootstrap);
+@import url(bootstrap);
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-// ===== THÃˆME SOMBRE (dÃ©faut) =====
+// ===== THÈME SOMBRE (défaut) =====
 [data-theme="dark"] {
   --bg-primary:    #0f0f1a;
   --bg-card:       #1a1a2e;
@@ -14,20 +14,20 @@
   --accent-hover:  var(--accent-hover);
 }
 
-// ===== THÃˆME CLAIR =====
+// ===== THÈME CLAIR =====
 [data-theme="light"] {
-  --bg-primary:    #f5f5f5;
-  --bg-card:       #ffffff;
-  --input-bg:      #f0f0f0;
-  --input-border:  #ddd;
-  --border-color:  #e0e0e0;
-  --text-primary:  #1a1a2e;
-  --text-muted:    #666;
-  --accent:        var(--accent);
-  --accent-hover:  var(--accent-hover);
+  --bg-primary:    #f5f5f5;   /* Fond général clair */
+  --bg-card:       #ffffff;   /* Fond des cartes */
+  --input-bg:      #ffffff;   /* Fond des champs de saisie */
+  --input-border:  #ccc;      /* Bord des inputs plus visible */
+  --border-color:  #ccc;      /* Bordures générales */
+  --text-primary:  #111111;   /* Texte principal plus foncé pour contraste */
+  --text-muted:    #444444;   /* Texte secondaire visible */
+  --accent:        #007BFF;   /* Couleur d’accent bleu */
+  --accent-hover:  #0056b3;   /* Accent au survol plus foncé */
 }
 
-// ===== THÃˆME OCÃ‰AN =====
+// ===== THÈME OCÉAN =====
 [data-theme="ocean"] {
   --bg-primary:    #0a1628;
   --bg-card:       #0d2137;
@@ -40,7 +40,7 @@
   --accent-hover:  #00a8cc;
 }
 
-// ===== THÃˆME VIOLET =====
+// ===== THÈME VIOLET =====
 [data-theme="purple"] {
   --bg-primary:    #0d0a1a;
   --bg-card:       #1a1030;
@@ -82,13 +82,5 @@ body {
 }
 
 
-:root {
-  --text-primary: 34, 34, 34;    // gris foncé pour light mode
-  --text-secondary: 85, 85, 85;  // gris moyen
-}
 
-[data-theme="dark"] {
-  --text-primary: 255, 255, 255; // blanc pour dark mode
-  --text-secondary: 200, 200, 200;
-}
 

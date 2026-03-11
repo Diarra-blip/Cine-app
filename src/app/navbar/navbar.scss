@@ -1,5 +1,5 @@
-﻿.douceur-navbar {
-  background: rgba(var(--accent-rgb),0.1);
+.douceur-navbar {
+  background: rgba(var(--accent-rgb),0.05);
   padding: 0 24px;
   height: 64px;
   display: flex;
@@ -120,7 +120,7 @@
 }
 
 .search-wrapper::before {
-  content: 'ðŸ”';
+  content: '🔍';
   position: absolute;
   left: 14px;
   top: 50%;
@@ -130,7 +130,7 @@
   z-index: 1;
 }
 
-// RÃ©sultats
+// Résultats
 .search-results {
   position: absolute;
   top: calc(100% + 8px);
@@ -189,7 +189,7 @@
 
 .hamburger {
   background: rgba(var(--accent-rgb), 0.08);
-    border: 1.5px solid rgba(var(--accent-rgb), 0.4);
+  border: 1.5px solid rgba(var(--accent-rgb), 1.0);
   cursor: pointer;
   padding: 7px;
   display: flex;
@@ -211,7 +211,7 @@
     display: block;
     height: 2px;
     width: 18px;
-    background:rgba(var(--accent-rgb),0.1);
+    background:rgba(var(--accent-rgb),0.75);
     border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
@@ -271,19 +271,21 @@
   .item-icon { font-size: 16px; }
 
   &:hover {
-    background: rgba(var(--accent-rgb),0.08);
+    background: rgba(var(--accent-rgb),0.5);
     color: var(--accent);
     padding-left: 18px;
   }
 
   &.primary {
     background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-    color: #1a1a2e;
+    color: #dddd;
     font-weight: 800;
     margin-top: 4px;
     &:hover {
       opacity: 0.9;
       padding-left: 14px;
+      background: rgba(var(--accent-rgb),0.5);
+      color: var(--accent);
     }
   }
 
@@ -309,7 +311,7 @@
   z-index: 199;
 }
 
-// Bouton thÃ¨me
+// Bouton thème
 .theme-toggle {
   background: rgba(255,255,255,0.05);
   border: 1.5px solid rgba(var(--accent-rgb),0.2);
@@ -328,12 +330,12 @@
 }
 
 @media (max-width: 1024px) {
-  .nav-links { display: none; } // â† les liens passent dans le hamburger
+  .nav-links { display: none; } // ← les liens passent dans le hamburger
   .search-wrapper { max-width: 200px; }
 }
 
 @media (max-width: 600px) {
-  .search-wrapper { display: none; } // â† la recherche disparait, accessible via hamburger
+  .search-wrapper { display: none; } // ← la recherche disparait, accessible via hamburger
   .douceur-logo { font-size: 16px; letter-spacing: 1px; }
 }
 

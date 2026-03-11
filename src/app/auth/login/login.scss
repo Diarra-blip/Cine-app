@@ -1,4 +1,4 @@
-﻿.auth-container {
+.auth-container {
   max-width: 420px;
   margin: 60px auto;
   padding: 48px 40px;
@@ -107,10 +107,10 @@ input {
   margin-top: 6px;
   padding-left: 4px;
 
-  &::before { content: 'âš  '; }
+  &::before { content: '⚠ '; }
 }
 
-// Bouton Å“il
+// Bouton œil
 .eye-btn {
    position: absolute;
    right: 14px;

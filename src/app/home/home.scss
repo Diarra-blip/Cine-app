@@ -1,6 +1,6 @@
-﻿.home-page {
+.home-page {
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: rgba(var(--accent-rgb),0.1);
 }
 
 // ===== Hero =====
@@ -15,7 +15,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(var(--accent-rgb),0.5) 0%, transparent 70%);
   }
 }
 
@@ -29,7 +29,7 @@
 .hero-title {
   font-size: 42px;
   font-weight: 900;
-  color: #eaeaea;
+  color: #000000;
   margin-bottom: 12px;
   animation: fadeDown 0.6s ease;
 }
@@ -67,7 +67,7 @@
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: rgba(var(--accent-rgb),0.5);
     background: rgba(var(--accent-rgb),0.1);
     box-shadow: 0 0 0 4px rgba(var(--accent-rgb),0.15);
   }
@@ -81,7 +81,7 @@
 }
 
 .section-title {
-  color: rgba(var(--accent-rgb),0.1);
+  color: rgba(var(--accent-rgb),1.0);
   font-size: 22px;
   font-weight: 800;
   margin-bottom: 24px;
@@ -181,7 +181,7 @@
   height: 44px;
   border-radius: 50%;
   border: none;
-  background: rgba(0,0,0,0.7);
+  background: rgba(var(--accent-rgb),0.1);
   color: var(--accent);
   font-size: 18px;
   cursor: pointer;
@@ -271,7 +271,7 @@
   overflow-x: auto;
   padding-bottom: 8px;
 
-  // Scrollbar stylÃ©e
+  // Scrollbar stylée
   &::-webkit-scrollbar {
     height: 4px;
   }
@@ -364,7 +364,7 @@
   align-items: center;
   gap: 10px;
   background: transparent;
-  border: 2px solid var(--accent);
+  border: 2px solid rgba(var(--accent-rgb),0.1);
   color: var(--accent);
   padding: 14px 36px;
   border-radius: 50px;
@@ -423,48 +423,6 @@
   &:active {
     transform: translateY(0);
   }
-}
-
-/* ================= THEME VARIABLES ================= */
-
-:root {
-
-  /* Backgrounds */
-  --bg-primary: #f5f6fa;
-  --bg-card: #ffffff;
-  --bg-soft: #eef1f7;
-
-  /* Text */
-  --text-primary: #1a1a2e;
-  --text-secondary: #555;
-  --text-muted: #777;
-
-  /* Accent */
-  --accent: rgb(var(--accent));
-  --accent-hover: #ffd84d;
-  --accent-rgb: 245, 197, 24;
-
-  /* Borders */
-  --border-color: #e2e6ef;
-}
-
-/* ================= DARK MODE ================= */
-
-[data-theme="dark"] {
-
-  --bg-primary: #0f1120;
-  --bg-card: #171a2f;
-  --bg-soft: #1f223a;
-
-  --text-primary: #ffffff;
-  --text-secondary: #cfcfe8;
-  --text-muted: #9a9ab0;
-
-  --accent: rgb(var(--accent));
-  --accent-hover: #ffd84d;
-  --accent-rgb: 245, 197, 24;
-
-  --border-color: #2a2f4a;
 }
 
 
